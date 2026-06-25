@@ -4,7 +4,7 @@ const AuthService = {
   // For Netlify, set this to your Render/Railway backend URL (e.g., https://tu-backend.onrender.com/api)
   API_URL: window.location.hostname === 'localhost' 
     ? 'http://localhost:5000/api' 
-    : 'https://TU-BACKEND.onrender.com/api',
+    : 'https://omrsystem.onrender.com/api',
 
   // Obtener storage según preferencia (priorizar sessionStorage para aislamiento por pestaña)
   getStorage() {
