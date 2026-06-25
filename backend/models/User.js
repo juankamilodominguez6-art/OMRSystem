@@ -93,8 +93,8 @@ User.prototype.matchPassword = async function(enteredPassword) {
 // Método para generar JWT token
 User.prototype.getSignedJwtToken = function() {
   const jwt = require('jsonwebtoken');
-  return jwt.sign({ id: this.id, role: this.role, companyId: this.companyId }, process.env.JWT_SECRET, {
-    expiresIn: process.env.JWT_EXPIRE
+  return jwt.sign({ id: this.id, role: this.role, companyId: this.companyId }, process.env.JWT_SECRET || 'fallback-secret-key-change-in-production', {
+    expiresIn: process.env.JWT_EXPIRE || '30d'
   });
 };
 
