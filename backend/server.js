@@ -6,6 +6,7 @@ const rateLimit = require('express-rate-limit');
 const path = require('path');
 const { connectDB } = require('./config/database');
 const errorHandler = require('./middleware/errorHandler');
+const { seedDatabase } = require('./seed');
 
 // Cargar variables de entorno
 dotenv.config();
@@ -16,8 +17,16 @@ require('./models/User');
 require('./models/Sale');
 require('./models/Invoice');
 
-// Conectar a la base de datos
-connectDB();
+// Conectar a la base de datos y sembrar
+const startServer = async () => {
+  try {
+    await connectDB();
+    await seedDatabase(false); // Sembrar datos de prueba sin salir
+  } catch (error) {
+    console.error('Error al iniciar:', error);
+  }
+};
+startServer();
 
 const app = express();
 

@@ -6,7 +6,7 @@ const { sequelize } = require('./config/database');
 dotenv.config();
 
 // Función para sembrar la base de datos
-const seedDatabase = async () => {
+const seedDatabase = async (autoExit = true) => {
   try {
     // Importar modelos como server.js
     require('./models/Company');
@@ -14,8 +14,8 @@ const seedDatabase = async () => {
     require('./models/Sale');
     require('./models/Invoice');
 
-    // Conectar a la base de datos (forzar sincronización para recrear tablas)
-    await connectDB(true);
+    // Conectar a la base de datos (solo forzar sincronización si es ejecutado directamente)
+    await connectDB(autoExit);
 
     // Importar modelos después de conectar
     const Company = require('./models/Company');
@@ -140,12 +140,21 @@ const seedDatabase = async () => {
     });
     console.log('\n⚠️  IMPORTANTE: Cambie las contraseñas después del primer inicio de sesión por seguridad.');
     console.log('✅ Siembra completada!');
-    process.exit(0);
+    if (autoExit) {
+      process.exit(0);
+    }
   } catch (error) {
     console.error('❌ Error durante la siembra:', error);
-    process.exit(1);
+    if (autoExit) {
+      process.exit(1);
+    }
   }
 };
 
-// Ejecutar el seed
-seedDatabase();
+// Exportar la función para usarla en server.js
+module.exports = { seedDatabase };
+
+// Ejecutar el seed solo si se ejecuta directamente (node seed.js)
+if (require.main === module) {
+  seedDatabase();
+}
