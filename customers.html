@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Clientes</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="js/auth.js"></script>
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .sidebar-link:hover { background: linear-gradient(90deg, #eff6ff, #dbeafe); }
+        .sidebar-link.active { background: linear-gradient(90deg, #dbeafe, #bfdbfe); border-left: 4px solid #3b82f6; }
+    </style>
+</head>
+<body class="bg-slate-100 min-h-screen">
+    <div class="flex min-h-screen">
+        <!-- Sidebar -->
+        <aside class="w-72 bg-white border-r border-slate-200 shadow-xl">
+            <div class="p-6 border-b border-slate-200">
+                <div class="flex items-center gap-4">
+                    <div class="w-12 h-12 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-2xl flex items-center justify-center shadow-lg">
+                        <span class="text-2xl text-white">🏪</span>
+                    </div>
+                    <div>
+                        <h1 class="text-xl font-black text-slate-900">Mi Negocio</h1>
+                        <p class="text-sm text-slate-500">Panel de Admin</p>
+                    </div>
+                </div>
+            </div>
+            
+            <nav class="p-4 space-y-2">
+                <a href="index.html" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-xl text-slate-700 font-semibold">
+                    <span>📊</span>
+                    Inicio
+                </a>
+                <a href="pos-panel.html" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-xl text-slate-700 font-semibold">
+                    <span>💵</span>
+                    Ventas (POS)
+                </a>
+                <a href="admin-dashboard.html" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-xl text-slate-700 font-semibold">
+                    <span>📦</span>
+                    Productos
+                </a>
+                <a href="#" class="sidebar-link active flex items-center gap-3 px-4 py-3 rounded-xl text-blue-700 font-semibold">
+                    <span>👥</span>
+                    Clientes
+                </a>
+                <a href="suppliers.html" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-xl text-slate-700 font-semibold">
+                    <span>🏭</span>
+                    Proveedores
+                </a>
+                <a href="reports.html" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-xl text-slate-700 font-semibold">
+                    <span>📈</span>
+                    Reportes
+                </a>
+                <a href="cash-register.html" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-xl text-slate-700 font-semibold">
+                    <span>💰</span>
+                    Caja
+                </a>
+                <a href="settings.html" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-xl text-slate-700 font-semibold">
+                    <span>⚙️</span>
+                    Configuración
+                </a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1">
+            <!-- Header -->
+            <header class="bg-white border-b border-slate-200 shadow-sm px-6 py-4 sticky top-0 z-20">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <h2 class="text-2xl font-black text-slate-900">Gestión de Clientes</h2>
+                        <p class="text-slate-500 text-sm">Base de datos de clientes</p>
+                    </div>
+                    <div class="flex items-center gap-4">
+                        <div class="flex items-center gap-3 px-4 py-2 bg-slate-100 rounded-xl">
+                            <div class="w-10 h-10 bg-gradient-to-br from-amber-100 to-orange-100 rounded-full flex items-center justify-center">
+                                <span class="font-bold text-amber-700">JP</span>
+                            </div>
+                            <span class="font-semibold text-slate-700">Juan Pérez</span>
+                        </div>
+                        <button onclick="openModal()" class="px-5 py-2.5 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-bold rounded-xl shadow-lg transition-all">
+                            + Nuevo Cliente
+                        </button>
+                    </div>
+                </div>
+            </header>
+
+            <div class="p-6 space-y-6 max-w-7xl mx-auto">
+                <!-- Stats Cards -->
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+                    <div class="bg-white rounded-2xl shadow-lg border border-slate-200 p-6">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-sm font-semibold text-slate-600">Total Clientes</p>
+                                <p class="text-3xl font-black text-slate-900 mt-2">248</p>
+                            </div>
+                            <div class="w-14 h-14 bg-gradient-to-br from-blue-100 to-indigo-100 rounded-2xl flex items-center justify-center text-3xl">👥</div>
+                        </div>
+                        <p class="text-sm text-emerald-600 font-semibold mt-3">↑ 8% vs mes anterior</p>
+                    </div>
+                    <div class="bg-white rounded-2xl shadow-lg border border-slate-200 p-6">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-sm font-semibold text-slate-600">Clientes Activos</p>
+                                <p class="text-3xl font-black text-emerald-600 mt-2">186</p>
+                            </div>
+                            <div class="w-14 h-14 bg-gradient-to-br from-emerald-100 to-green-100 rounded-2xl flex items-center justify-center text-3xl">✅</div>
+                        </div>
+                        <p class="text-sm text-slate-500 mt-3">Compras en último mes</p>
+                    </div>
+                    <div class="bg-white rounded-2xl shadow-lg border border-slate-200 p-6">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-sm font-semibold text-slate-600">Créditos Activos</p>
+                                <p class="text-3xl font-black text-amber-600 mt-2">12</p>
+                            </div>
+                            <div class="w-14 h-14 bg-gradient-to-br from-amber-100 to-orange-100 rounded-2xl flex items-center justify-center text-3xl">⏳</div>
+                        </div>
+                        <p class="text-sm text-amber-600 font-semibold mt-3">$4,520 pendiente</p>
+                    </div>
+                    <div class="bg-white rounded-2xl shadow-lg border border-slate-200 p-6">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-sm font-semibold text-slate-600">VIP</p>
+                                <p class="text-3xl font-black text-purple-600 mt-2">28</p>
+                            </div>
+                            <div class="w-14 h-14 bg-gradient-to-br from-purple-100 to-pink-100 rounded-2xl flex items-center justify-center text-3xl">⭐</div>
+                        </div>
+                        <p class="text-sm text-slate-500 mt-3">Clientes premium</p>
+                    </div>
+                </div>
+
+                <!-- Customers Table -->
+                <div class="bg-white rounded-2xl shadow-lg border border-slate-200 overflow-hidden">
+                    <div class="p-6 border-b border-slate-200">
+                        <div class="flex items-center justify-between">
+                            <h3 class="text-xl font-black text-slate-900">Lista de Clientes</h3>
+                            <div class="flex gap-3">
+                                <input type="text" placeholder="🔍 Buscar cliente..." class="px-4 py-2 border border-slate-200 rounded-xl focus:border-blue-500 w-72">
+                                <select class="px-4 py-2 border border-slate-200 rounded-xl">
+                                    <option>Todos los estados</option>
+                                    <option>Activos</option>
+                                    <option>Inactivos</option>
+                                    <option>Con Crédito</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="w-full">
+                            <thead class="bg-gradient-to-r from-slate-50 to-slate-100 border-b border-slate-200">
+                                <tr>
+                                    <th class="px-6 py-4 text-left text-sm font-bold text-slate-700">Cliente</th>
+                                    <th class="px-6 py-4 text-left text-sm font-bold text-slate-700">Teléfono</th>
+                                    <th class="px-6 py-4 text-left text-sm font-bold text-slate-700">Email</th>
+                                    <th class="px-6 py-4 text-center text-sm font-bold text-slate-700">Tipo</th>
+                                    <th class="px-6 py-4 text-right text-sm font-bold text-slate-700">Total Compras</th>
+                                    <th class="px-6 py-4 text-center text-sm font-bold text-slate-700 rounded-tr-2xl">Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-slate-100" id="customersTable">
+                                <tr class="hover:bg-slate-50">
+                                    <td class="px-6 py-4">
+                                        <div class="flex items-center gap-4">
+                                            <div class="w-12 h-12 bg-gradient-to-br from-blue-100 to-indigo-100 rounded-full flex items-center justify-center text-xl font-bold text-blue-700">MR</div>
+                                            <div>
+                                                <p class="font-bold text-slate-900">María Rodríguez</p>
+                                                <p class="text-sm text-slate-500">ID: CLI-001</p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="px-6 py-4 text-slate-700">+57 300 123 4567</td>
+                                    <td class="px-6 py-4 text-slate-700">maria@email.com</td>
+                                    <td class="px-6 py-4 text-center">
+                                        <span class="px-3 py-1 bg-purple-100 text-purple-700 rounded-full text-sm font-bold">⭐ VIP</span>
+                                    </td>
+                                    <td class="px-6 py-4 text-right font-bold text-emerald-700">$12,450</td>
+                                    <td class="px-6 py-4 text-center">
+                                        <div class="flex gap-2 justify-center">
+                                            <button onclick="editCustomer(1)" class="px-3 py-1 bg-blue-100 text-blue-700 rounded-lg text-sm font-semibold hover:bg-blue-200">Editar</button>
+                                            <button onclick="deleteCustomer(1)" class="px-3 py-1 bg-red-100 text-red-700 rounded-lg text-sm font-semibold hover:bg-red-200">Eliminar</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr class="hover:bg-slate-50">
+                                    <td class="px-6 py-4">
+                                        <div class="flex items-center gap-4">
+                                            <div class="w-12 h-12 bg-gradient-to-br from-emerald-100 to-green-100 rounded-full flex items-center justify-center text-xl font-bold text-emerald-700">CG</div>
+                                            <div>
+                                                <p class="font-bold text-slate-900">Carlos García</p>
+                                                <p class="text-sm text-slate-500">ID: CLI-002</p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="px-6 py-4 text-slate-700">+57 310 987 6543</td>
+                                    <td class="px-6 py-4 text-slate-700">carlos@email.com</td>
+                                    <td class="px-6 py-4 text-center">
+                                        <span class="px-3 py-1 bg-emerald-100 text-emerald-700 rounded-full text-sm font-bold">Activo</span>
+                                    </td>
+                                    <td class="px-6 py-4 text-right font-bold text-slate-900">$3,280</td>
+                                    <td class="px-6 py-4 text-center">
+                                        <div class="flex gap-2 justify-center">
+                                            <button onclick="editCustomer(2)" class="px-3 py-1 bg-blue-100 text-blue-700 rounded-lg text-sm font-semibold hover:bg-blue-200">Editar</button>
+                                            <button onclick="deleteCustomer(2)" class="px-3 py-1 bg-red-100 text-red-700 rounded-lg text-sm font-semibold hover:bg-red-200">Eliminar</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr class="hover:bg-slate-50">
+                                    <td class="px-6 py-4">
+                                        <div class="flex items-center gap-4">
+                                            <div class="w-12 h-12 bg-gradient-to-br from-amber-100 to-orange-100 rounded-full flex items-center justify-center text-xl font-bold text-amber-700">AM</div>
+                                            <div>
+                                                <p class="font-bold text-slate-900">Ana Martínez</p>
+                                                <p class="text-sm text-slate-500">ID: CLI-003</p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="px-6 py-4 text-slate-700">+57 320 456 7890</td>
+                                    <td class="px-6 py-4 text-slate-700">ana@email.com</td>
+                                    <td class="px-6 py-4 text-center">
+                                        <span class="px-3 py-1 bg-amber-100 text-amber-700 rounded-full text-sm font-bold">⏳ Crédito</span>
+                                    </td>
+                                    <td class="px-6 py-4 text-right font-bold text-slate-900">$1,850</td>
+                                    <td class="px-6 py-4 text-center">
+                                        <div class="flex gap-2 justify-center">
+                                            <button onclick="editCustomer(3)" class="px-3 py-1 bg-blue-100 text-blue-700 rounded-lg text-sm font-semibold hover:bg-blue-200">Editar</button>
+                                            <button onclick="deleteCustomer(3)" class="px-3 py-1 bg-red-100 text-red-700 rounded-lg text-sm font-semibold hover:bg-red-200">Eliminar</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="p-6 border-t border-slate-200 flex items-center justify-between bg-slate-50">
+                        <p class="text-slate-600 text-sm">Mostrando 3 de 248 clientes</p>
+                        <div class="flex gap-2">
+                            <button class="px-4 py-2 bg-slate-200 text-slate-700 rounded-lg font-semibold">← Anterior</button>
+                            <button class="px-4 py-2 bg-blue-500 text-white rounded-lg font-semibold">1</button>
+                            <button class="px-4 py-2 bg-white text-slate-700 border border-slate-200 rounded-lg font-semibold">2</button>
+                            <button class="px-4 py-2 bg-white text-slate-700 border border-slate-200 rounded-lg font-semibold">3</button>
+                            <button class="px-4 py-2 bg-white text-slate-700 border border-slate-200 rounded-lg font-semibold">Siguiente →</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal (Hidden) -->
+    <div id="customerModal" class="fixed inset-0 bg-black/50 z-50 hidden items-center justify-center">
+        <div class="bg-white rounded-3xl shadow-2xl max-w-lg w-full mx-4 overflow-hidden">
+            <div class="bg-gradient-to-r from-blue-500 to-indigo-600 text-white p-6">
+                <h3 class="text-xl font-bold" id="modalTitle">Nuevo Cliente</h3>
+            </div>
+            <div class="p-6 space-y-4">
+                <input id="customerName" placeholder="Nombre completo" class="w-full px-4 py-3 border border-slate-200 rounded-xl">
+                <input id="customerPhone" placeholder="Teléfono" class="w-full px-4 py-3 border border-slate-200 rounded-xl">
+                <input id="customerEmail" placeholder="Email" type="email" class="w-full px-4 py-3 border border-slate-200 rounded-xl">
+                <select id="customerType" class="w-full px-4 py-3 border border-slate-200 rounded-xl">
+                    <option value="regular">Regular</option>
+                    <option value="vip">VIP</option>
+                    <option value="credit">Con Crédito</option>
+                </select>
+                <div class="flex gap-3 pt-4">
+                    <button onclick="closeModal()" class="flex-1 px-4 py-3 bg-slate-100 text-slate-700 font-bold rounded-xl">Cancelar</button>
+                    <button onclick="saveCustomer()" class="flex-1 px-4 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-bold rounded-xl">Guardar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let customers = [
+            { id: 1, name: 'María Rodríguez', phone: '+57 300 123 4567', email: 'maria@email.com', type: 'vip', total: 12450 },
+            { id: 2, name: 'Carlos García', phone: '+57 310 987 6543', email: 'carlos@email.com', type: 'regular', total: 3280 },
+            { id: 3, name: 'Ana Martínez', phone: '+57 320 456 7890', email: 'ana@email.com', type: 'credit', total: 1850 },
+        ];
+        let editingId = null;
+
+        function openModal() {
+            editingId = null;
+            document.getElementById('modalTitle').textContent = 'Nuevo Cliente';
+            document.getElementById('customerName').value = '';
+            document.getElementById('customerPhone').value = '';
+            document.getElementById('customerEmail').value = '';
+            document.getElementById('customerType').value = 'regular';
+            document.getElementById('customerModal').classList.remove('hidden');
+            document.getElementById('customerModal').classList.add('flex');
+        }
+
+        function closeModal() {
+            document.getElementById('customerModal').classList.add('hidden');
+            document.getElementById('customerModal').classList.remove('flex');
+        }
+
+        function editCustomer(id) {
+            const customer = customers.find(c => c.id === id);
+            if (customer) {
+                editingId = id;
+                document.getElementById('modalTitle').textContent = 'Editar Cliente';
+                document.getElementById('customerName').value = customer.name;
+                document.getElementById('customerPhone').value = customer.phone;
+                document.getElementById('customerEmail').value = customer.email;
+                document.getElementById('customerType').value = customer.type;
+                document.getElementById('customerModal').classList.remove('hidden');
+                document.getElementById('customerModal').classList.add('flex');
+            }
+        }
+
+        function saveCustomer() {
+            const name = document.getElementById('customerName').value;
+            const phone = document.getElementById('customerPhone').value;
+            const email = document.getElementById('customerEmail').value;
+            const type = document.getElementById('customerType').value;
+
+            if (!name) {
+                alert('Por favor ingrese el nombre del cliente');
+                return;
+            }
+
+            if (editingId) {
+                const index = customers.findIndex(c => c.id === editingId);
+                customers[index] = { ...customers[index], name, phone, email, type };
+                alert('✅ Cliente actualizado exitosamente!');
+            } else {
+                const newId = Math.max(...customers.map(c => c.id)) + 1;
+                customers.push({ id: newId, name, phone, email, type, total: 0 });
+                alert('✅ Cliente creado exitosamente!');
+            }
+
+            renderCustomers();
+            closeModal();
+        }
+
+        function deleteCustomer(id) {
+            if (confirm('¿Está seguro de eliminar este cliente?')) {
+                customers = customers.filter(c => c.id !== id);
+                renderCustomers();
+                alert('✅ Cliente eliminado exitosamente!');
+            }
+        }
+
+        function renderCustomers() {
+            const tbody = document.getElementById('customersTable');
+            tbody.innerHTML = customers.map(c => {
+                const typeLabels = {
+                    vip: '<span class="px-3 py-1 bg-purple-100 text-purple-700 rounded-full text-sm font-bold">⭐ VIP</span>',
+                    regular: '<span class="px-3 py-1 bg-emerald-100 text-emerald-700 rounded-full text-sm font-bold">Activo</span>',
+                    credit: '<span class="px-3 py-1 bg-amber-100 text-amber-700 rounded-full text-sm font-bold">⏳ Crédito</span>'
+                };
+                const initials = c.name.split(' ').map(n => n[0]).join('').toUpperCase();
+                const colors = ['blue', 'emerald', 'amber', 'purple', 'pink'];
+                const color = colors[c.id % colors.length];
+                
+                return `
+                    <tr class="hover:bg-slate-50">
+                        <td class="px-6 py-4">
+                            <div class="flex items-center gap-4">
+                                <div class="w-12 h-12 bg-gradient-to-br from-${color}-100 to-${color}-200 rounded-full flex items-center justify-center text-xl font-bold text-${color}-700">${initials}</div>
+                                <div>
+                                    <p class="font-bold text-slate-900">${c.name}</p>
+                                    <p class="text-sm text-slate-500">ID: CLI-${String(c.id).padStart(3, '0')}</p>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="px-6 py-4 text-slate-700">${c.phone}</td>
+                        <td class="px-6 py-4 text-slate-700">${c.email}</td>
+                        <td class="px-6 py-4 text-center">${typeLabels[c.type]}</td>
+                        <td class="px-6 py-4 text-right font-bold ${c.total > 0 ? 'text-emerald-700' : 'text-slate-900'}">$${c.total.toLocaleString()}</td>
+                        <td class="px-6 py-4 text-center">
+                            <div class="flex gap-2 justify-center">
+                                <button onclick="editCustomer(${c.id})" class="px-3 py-1 bg-blue-100 text-blue-700 rounded-lg text-sm font-semibold hover:bg-blue-200">Editar</button>
+                                <button onclick="deleteCustomer(${c.id})" class="px-3 py-1 bg-red-100 text-red-700 rounded-lg text-sm font-semibold hover:bg-red-200">Eliminar</button>
+                            </div>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        renderCustomers();
+
+        // Verificar autenticación al cargar
+        window.addEventListener('load', () => {
+            AuthService.requireAuth();
+        });
+    </script>
+</body>
+</html>

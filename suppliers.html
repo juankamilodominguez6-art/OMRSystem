@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Proveedores</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="js/auth.js"></script>
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .sidebar-link:hover { background: linear-gradient(90deg, #eff6ff, #dbeafe); }
+        .sidebar-link.active { background: linear-gradient(90deg, #dbeafe, #bfdbfe); border-left: 4px solid #3b82f6; }
+    </style>
+</head>
+<body class="bg-slate-100 min-h-screen">
+    <div class="flex min-h-screen">
+        <!-- Sidebar -->
+        <aside class="w-72 bg-white border-r border-slate-200 shadow-xl">
+            <div class="p-6 border-b border-slate-200">
+                <div class="flex items-center gap-4">
+                    <div class="w-12 h-12 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-2xl flex items-center justify-center shadow-lg">
+                        <span class="text-2xl text-white">🏪</span>
+                    </div>
+                    <div>
+                        <h1 class="text-xl font-black text-slate-900">Mi Negocio</h1>
+                        <p class="text-sm text-slate-500">Panel de Admin</p>
+                    </div>
+                </div>
+            </div>
+            
+            <nav class="p-4 space-y-2">
+                <a href="index.html" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-xl text-slate-700 font-semibold">
+                    <span>📊</span>
+                    Inicio
+                </a>
+                <a href="pos-panel.html" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-xl text-slate-700 font-semibold">
+                    <span>💵</span>
+                    Ventas (POS)
+                </a>
+                <a href="admin-dashboard.html" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-xl text-slate-700 font-semibold">
+                    <span>📦</span>
+                    Productos
+                </a>
+                <a href="customers.html" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-xl text-slate-700 font-semibold">
+                    <span>👥</span>
+                    Clientes
+                </a>
+                <a href="#" class="sidebar-link active flex items-center gap-3 px-4 py-3 rounded-xl text-blue-700 font-semibold">
+                    <span>🏭</span>
+                    Proveedores
+                </a>
+                <a href="reports.html" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-xl text-slate-700 font-semibold">
+                    <span>📈</span>
+                    Reportes
+                </a>
+                <a href="cash-register.html" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-xl text-slate-700 font-semibold">
+                    <span>💰</span>
+                    Caja
+                </a>
+                <a href="settings.html" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-xl text-slate-700 font-semibold">
+                    <span>⚙️</span>
+                    Configuración
+                </a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1">
+            <!-- Header -->
+            <header class="bg-white border-b border-slate-200 shadow-sm px-6 py-4 sticky top-0 z-20">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <h2 class="text-2xl font-black text-slate-900">Gestión de Proveedores</h2>
+                        <p class="text-slate-500 text-sm">Base de datos de proveedores</p>
+                    </div>
+                    <div class="flex items-center gap-4">
+                        <div class="flex items-center gap-3 px-4 py-2 bg-slate-100 rounded-xl">
+                            <div class="w-10 h-10 bg-gradient-to-br from-amber-100 to-orange-100 rounded-full flex items-center justify-center">
+                                <span class="font-bold text-amber-700">JP</span>
+                            </div>
+                            <span class="font-semibold text-slate-700">Juan Pérez</span>
+                        </div>
+                        <button onclick="openModal()" class="px-5 py-2.5 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-bold rounded-xl shadow-lg transition-all">
+                            + Nuevo Proveedor
+                        </button>
+                    </div>
+                </div>
+            </header>
+
+            <div class="p-6 space-y-6 max-w-7xl mx-auto">
+                <!-- Stats Cards -->
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+                    <div class="bg-white rounded-2xl shadow-lg border border-slate-200 p-6">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-sm font-semibold text-slate-600">Total Proveedores</p>
+                                <p class="text-3xl font-black text-slate-900 mt-2">32</p>
+                            </div>
+                            <div class="w-14 h-14 bg-gradient-to-br from-blue-100 to-indigo-100 rounded-2xl flex items-center justify-center text-3xl">🏭</div>
+                        </div>
+                        <p class="text-sm text-emerald-600 font-semibold mt-3">↑ 3 nuevos este mes</p>
+                    </div>
+                    <div class="bg-white rounded-2xl shadow-lg border border-slate-200 p-6">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-sm font-semibold text-slate-600">Activos</p>
+                                <p class="text-3xl font-black text-emerald-600 mt-2">28</p>
+                            </div>
+                            <div class="w-14 h-14 bg-gradient-to-br from-emerald-100 to-green-100 rounded-2xl flex items-center justify-center text-3xl">✅</div>
+                        </div>
+                        <p class="text-sm text-slate-500 mt-3">Con pedidos recientes</p>
+                    </div>
+                    <div class="bg-white rounded-2xl shadow-lg border border-slate-200 p-6">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-sm font-semibold text-slate-600">Pedidos Pendientes</p>
+                                <p class="text-3xl font-black text-amber-600 mt-2">7</p>
+                            </div>
+                            <div class="w-14 h-14 bg-gradient-to-br from-amber-100 to-orange-100 rounded-2xl flex items-center justify-center text-3xl">📦</div>
+                        </div>
+                        <p class="text-sm text-amber-600 font-semibold mt-3">En tránsito</p>
+                    </div>
+                    <div class="bg-white rounded-2xl shadow-lg border border-slate-200 p-6">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-sm font-semibold text-slate-600">Deuda Total</p>
+                                <p class="text-3xl font-black text-red-600 mt-2">$8,450</p>
+                            </div>
+                            <div class="w-14 h-14 bg-gradient-to-br from-red-100 to-rose-100 rounded-2xl flex items-center justify-center text-3xl">💳</div>
+                        </div>
+                        <p class="text-sm text-slate-500 mt-3">Por pagar</p>
+                    </div>
+                </div>
+
+                <!-- Suppliers Table -->
+                <div class="bg-white rounded-2xl shadow-lg border border-slate-200 overflow-hidden">
+                    <div class="p-6 border-b border-slate-200">
+                        <div class="flex items-center justify-between">
+                            <h3 class="text-xl font-black text-slate-900">Lista de Proveedores</h3>
+                            <div class="flex gap-3">
+                                <input type="text" placeholder="🔍 Buscar proveedor..." class="px-4 py-2 border border-slate-200 rounded-xl focus:border-blue-500 w-72">
+                                <select class="px-4 py-2 border border-slate-200 rounded-xl">
+                                    <option>Todas las categorías</option>
+                                    <option>Frutas y Verduras</option>
+                                    <option>Granos</option>
+                                    <option>Bebidas</option>
+                                    <option>Abarrotes</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="w-full">
+                            <thead class="bg-gradient-to-r from-slate-50 to-slate-100 border-b border-slate-200">
+                                <tr>
+                                    <th class="px-6 py-4 text-left text-sm font-bold text-slate-700">Proveedor</th>
+                                    <th class="px-6 py-4 text-left text-sm font-bold text-slate-700">Teléfono</th>
+                                    <th class="px-6 py-4 text-left text-sm font-bold text-slate-700">Email</th>
+                                    <th class="px-6 py-4 text-center text-sm font-bold text-slate-700">Categoría</th>
+                                    <th class="px-6 py-4 text-right text-sm font-bold text-slate-700">Saldo</th>
+                                    <th class="px-6 py-4 text-center text-sm font-bold text-slate-700 rounded-tr-2xl">Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-slate-100" id="suppliersTable">
+                                <tr class="hover:bg-slate-50">
+                                    <td class="px-6 py-4">
+                                        <div class="flex items-center gap-4">
+                                            <div class="w-12 h-12 bg-gradient-to-br from-green-100 to-emerald-100 rounded-full flex items-center justify-center text-xl font-bold text-green-700">FV</div>
+                                            <div>
+                                                <p class="font-bold text-slate-900">Frutas Verdes S.A.</p>
+                                                <p class="text-sm text-slate-500">ID: PROV-001</p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="px-6 py-4 text-slate-700">+57 300 555 1234</td>
+                                    <td class="px-6 py-4 text-slate-700">contacto@frutasverdes.com</td>
+                                    <td class="px-6 py-4 text-center">
+                                        <span class="px-3 py-1 bg-green-100 text-green-700 rounded-full text-sm font-semibold">Frutas</span>
+                                    </td>
+                                    <td class="px-6 py-4 text-right font-bold text-red-600">$2,350</td>
+                                    <td class="px-6 py-4 text-center">
+                                        <div class="flex gap-2 justify-center">
+                                            <button onclick="editSupplier(1)" class="px-3 py-1 bg-blue-100 text-blue-700 rounded-lg text-sm font-semibold hover:bg-blue-200">Editar</button>
+                                            <button onclick="deleteSupplier(1)" class="px-3 py-1 bg-red-100 text-red-700 rounded-lg text-sm font-semibold hover:bg-red-200">Eliminar</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr class="hover:bg-slate-50">
+                                    <td class="px-6 py-4">
+                                        <div class="flex items-center gap-4">
+                                            <div class="w-12 h-12 bg-gradient-to-br from-amber-100 to-yellow-100 rounded-full flex items-center justify-center text-xl font-bold text-amber-700">GA</div>
+                                            <div>
+                                                <p class="font-bold text-slate-900">Granos del Atlántico</p>
+                                                <p class="text-sm text-slate-500">ID: PROV-002</p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="px-6 py-4 text-slate-700">+57 310 777 8888</td>
+                                    <td class="px-6 py-4 text-slate-700">ventas@granosatl.com</td>
+                                    <td class="px-6 py-4 text-center">
+                                        <span class="px-3 py-1 bg-amber-100 text-amber-700 rounded-full text-sm font-semibold">Granos</span>
+                                    </td>
+                                    <td class="px-6 py-4 text-right font-bold text-emerald-700">$0</td>
+                                    <td class="px-6 py-4 text-center">
+                                        <div class="flex gap-2 justify-center">
+                                            <button onclick="editSupplier(2)" class="px-3 py-1 bg-blue-100 text-blue-700 rounded-lg text-sm font-semibold hover:bg-blue-200">Editar</button>
+                                            <button onclick="deleteSupplier(2)" class="px-3 py-1 bg-red-100 text-red-700 rounded-lg text-sm font-semibold hover:bg-red-200">Eliminar</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr class="hover:bg-slate-50">
+                                    <td class="px-6 py-4">
+                                        <div class="flex items-center gap-4">
+                                            <div class="w-12 h-12 bg-gradient-to-br from-blue-100 to-indigo-100 rounded-full flex items-center justify-center text-xl font-bold text-blue-700">BD</div>
+                                            <div>
+                                                <p class="font-bold text-slate-900">Bebidas del Valle</p>
+                                                <p class="text-sm text-slate-500">ID: PROV-003</p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="px-6 py-4 text-slate-700">+57 320 999 0000</td>
+                                    <td class="px-6 py-4 text-slate-700">info@bebidasvalle.com</td>
+                                    <td class="px-6 py-4 text-center">
+                                        <span class="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-sm font-semibold">Bebidas</span>
+                                    </td>
+                                    <td class="px-6 py-4 text-right font-bold text-red-600">$6,100</td>
+                                    <td class="px-6 py-4 text-center">
+                                        <div class="flex gap-2 justify-center">
+                                            <button onclick="editSupplier(3)" class="px-3 py-1 bg-blue-100 text-blue-700 rounded-lg text-sm font-semibold hover:bg-blue-200">Editar</button>
+                                            <button onclick="deleteSupplier(3)" class="px-3 py-1 bg-red-100 text-red-700 rounded-lg text-sm font-semibold hover:bg-red-200">Eliminar</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="p-6 border-t border-slate-200 flex items-center justify-between bg-slate-50">
+                        <p class="text-slate-600 text-sm">Mostrando 3 de 32 proveedores</p>
+                        <div class="flex gap-2">
+                            <button class="px-4 py-2 bg-slate-200 text-slate-700 rounded-lg font-semibold">← Anterior</button>
+                            <button class="px-4 py-2 bg-blue-500 text-white rounded-lg font-semibold">1</button>
+                            <button class="px-4 py-2 bg-white text-slate-700 border border-slate-200 rounded-lg font-semibold">2</button>
+                            <button class="px-4 py-2 bg-white text-slate-700 border border-slate-200 rounded-lg font-semibold">3</button>
+                            <button class="px-4 py-2 bg-white text-slate-700 border border-slate-200 rounded-lg font-semibold">Siguiente →</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal (Hidden) -->
+    <div id="supplierModal" class="fixed inset-0 bg-black/50 z-50 hidden items-center justify-center">
+        <div class="bg-white rounded-3xl shadow-2xl max-w-lg w-full mx-4 overflow-hidden">
+            <div class="bg-gradient-to-r from-blue-500 to-indigo-600 text-white p-6">
+                <h3 class="text-xl font-bold" id="modalTitle">Nuevo Proveedor</h3>
+            </div>
+            <div class="p-6 space-y-4">
+                <input id="supplierName" placeholder="Nombre de la empresa" class="w-full px-4 py-3 border border-slate-200 rounded-xl">
+                <input id="supplierPhone" placeholder="Teléfono" class="w-full px-4 py-3 border border-slate-200 rounded-xl">
+                <input id="supplierEmail" placeholder="Email" type="email" class="w-full px-4 py-3 border border-slate-200 rounded-xl">
+                <select id="supplierCategory" class="w-full px-4 py-3 border border-slate-200 rounded-xl">
+                    <option value="fruits">Frutas y Verduras</option>
+                    <option value="grains">Granos</option>
+                    <option value="liquids">Bebidas</option>
+                    <option value="snacks">Abarrotes</option>
+                </select>
+                <div class="flex gap-3 pt-4">
+                    <button onclick="closeModal()" class="flex-1 px-4 py-3 bg-slate-100 text-slate-700 font-bold rounded-xl">Cancelar</button>
+                    <button onclick="saveSupplier()" class="flex-1 px-4 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-bold rounded-xl">Guardar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let suppliers = [
+            { id: 1, name: 'Frutas Verdes S.A.', phone: '+57 300 555 1234', email: 'contacto@frutasverdes.com', category: 'fruits', balance: 2350 },
+            { id: 2, name: 'Granos del Atlántico', phone: '+57 310 777 8888', email: 'ventas@granosatl.com', category: 'grains', balance: 0 },
+            { id: 3, name: 'Bebidas del Valle', phone: '+57 320 999 0000', email: 'info@bebidasvalle.com', category: 'liquids', balance: 6100 },
+        ];
+        let editingId = null;
+
+        function openModal() {
+            editingId = null;
+            document.getElementById('modalTitle').textContent = 'Nuevo Proveedor';
+            document.getElementById('supplierName').value = '';
+            document.getElementById('supplierPhone').value = '';
+            document.getElementById('supplierEmail').value = '';
+            document.getElementById('supplierCategory').value = 'fruits';
+            document.getElementById('supplierModal').classList.remove('hidden');
+            document.getElementById('supplierModal').classList.add('flex');
+        }
+
+        function closeModal() {
+            document.getElementById('supplierModal').classList.add('hidden');
+            document.getElementById('supplierModal').classList.remove('flex');
+        }
+
+        function editSupplier(id) {
+            const supplier = suppliers.find(s => s.id === id);
+            if (supplier) {
+                editingId = id;
+                document.getElementById('modalTitle').textContent = 'Editar Proveedor';
+                document.getElementById('supplierName').value = supplier.name;
+                document.getElementById('supplierPhone').value = supplier.phone;
+                document.getElementById('supplierEmail').value = supplier.email;
+                document.getElementById('supplierCategory').value = supplier.category;
+                document.getElementById('supplierModal').classList.remove('hidden');
+                document.getElementById('supplierModal').classList.add('flex');
+            }
+        }
+
+        function saveSupplier() {
+            const name = document.getElementById('supplierName').value;
+            const phone = document.getElementById('supplierPhone').value;
+            const email = document.getElementById('supplierEmail').value;
+            const category = document.getElementById('supplierCategory').value;
+
+            if (!name) {
+                alert('Por favor ingrese el nombre del proveedor');
+                return;
+            }
+
+            if (editingId) {
+                const index = suppliers.findIndex(s => s.id === editingId);
+                suppliers[index] = { ...suppliers[index], name, phone, email, category };
+                alert('✅ Proveedor actualizado exitosamente!');
+            } else {
+                const newId = Math.max(...suppliers.map(s => s.id)) + 1;
+                suppliers.push({ id: newId, name, phone, email, category, balance: 0 });
+                alert('✅ Proveedor creado exitosamente!');
+            }
+
+            renderSuppliers();
+            closeModal();
+        }
+
+        function deleteSupplier(id) {
+            if (confirm('¿Está seguro de eliminar este proveedor?')) {
+                suppliers = suppliers.filter(s => s.id !== id);
+                renderSuppliers();
+                alert('✅ Proveedor eliminado exitosamente!');
+            }
+        }
+
+        function renderSuppliers() {
+            const tbody = document.getElementById('suppliersTable');
+            const categoryLabels = {
+                fruits: '<span class="px-3 py-1 bg-green-100 text-green-700 rounded-full text-sm font-semibold">Frutas</span>',
+                grains: '<span class="px-3 py-1 bg-amber-100 text-amber-700 rounded-full text-sm font-semibold">Granos</span>',
+                liquids: '<span class="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-sm font-semibold">Bebidas</span>',
+                snacks: '<span class="px-3 py-1 bg-purple-100 text-purple-700 rounded-full text-sm font-semibold">Abarrotes</span>'
+            };
+            const categoryColors = {
+                fruits: 'green',
+                grains: 'amber',
+                liquids: 'blue',
+                snacks: 'purple'
+            };
+
+            tbody.innerHTML = suppliers.map(s => {
+                const initials = s.name.split(' ').map(n => n[0]).join('').toUpperCase().substring(0, 2);
+                const color = categoryColors[s.category];
+                
+                return `
+                    <tr class="hover:bg-slate-50">
+                        <td class="px-6 py-4">
+                            <div class="flex items-center gap-4">
+                                <div class="w-12 h-12 bg-gradient-to-br from-${color}-100 to-${color}-200 rounded-full flex items-center justify-center text-xl font-bold text-${color}-700">${initials}</div>
+                                <div>
+                                    <p class="font-bold text-slate-900">${s.name}</p>
+                                    <p class="text-sm text-slate-500">ID: PROV-${String(s.id).padStart(3, '0')}</p>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="px-6 py-4 text-slate-700">${s.phone}</td>
+                        <td class="px-6 py-4 text-slate-700">${s.email}</td>
+                        <td class="px-6 py-4 text-center">${categoryLabels[s.category]}</td>
+                        <td class="px-6 py-4 text-right font-bold ${s.balance > 0 ? 'text-red-600' : 'text-emerald-700'}">$${s.balance.toLocaleString()}</td>
+                        <td class="px-6 py-4 text-center">
+                            <div class="flex gap-2 justify-center">
+                                <button onclick="editSupplier(${s.id})" class="px-3 py-1 bg-blue-100 text-blue-700 rounded-lg text-sm font-semibold hover:bg-blue-200">Editar</button>
+                                <button onclick="deleteSupplier(${s.id})" class="px-3 py-1 bg-red-100 text-red-700 rounded-lg text-sm font-semibold hover:bg-red-200">Eliminar</button>
+                            </div>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        renderSuppliers();
+
+        // Verificar autenticación al cargar
+        window.addEventListener('load', () => {
+            AuthService.requireAuth();
+            
+            const user = AuthService.getUser();
+            if (user) {
+                // Si es el dueño, redirigir al dashboard
+                if (user.email === 'dueno@omr.com') {
+                    window.location.href = 'index.html';
+                    return;
+                }
+            }
+        });
+    </script>
+</body>
+</html>

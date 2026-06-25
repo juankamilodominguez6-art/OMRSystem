@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Iniciar Sesión - OMR System</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="js/auth.js"></script>
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+    .gradient-bg {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    }
+    .input-focus:focus {
+      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.3);
+    }
+  </style>
+</head>
+<body class="min-h-screen gradient-bg flex items-center justify-center p-4">
+  <div class="w-full max-w-md">
+    <!-- Logo y Título -->
+    <div class="text-center mb-8">
+      <img src="./assets/logo.jpg" alt="OMR System Logo" class="inline-block w-48 h-auto mb-4 rounded-2xl shadow-2xl">
+      <h1 class="text-3xl font-extrabold text-white mb-2">OMR System</h1>
+      <p class="text-white/80">Inicia sesión para continuar</p>
+    </div>
+
+    <!-- Formulario de Login -->
+    <div class="bg-white rounded-3xl shadow-2xl p-8">
+      <form id="loginForm" class="space-y-6">
+        <!-- Email -->
+        <div>
+          <label for="email" class="block text-sm font-bold text-slate-700 mb-2">
+            Correo Electrónico
+          </label>
+          <div class="relative">
+            <span class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400">📧</span>
+            <input 
+              type="email" 
+              id="email" 
+              name="email"
+              required
+              class="w-full pl-12 pr-4 py-3 border-2 border-slate-200 rounded-xl input-focus focus:border-indigo-500 focus:outline-none transition-all"
+              placeholder="tu@ejemplo.com"
+            >
+          </div>
+        </div>
+
+        <!-- Contraseña -->
+        <div>
+          <label for="password" class="block text-sm font-bold text-slate-700 mb-2">
+            Contraseña
+          </label>
+          <div class="relative">
+            <span class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400">🔒</span>
+            <input 
+              type="password" 
+              id="password" 
+              name="password"
+              required
+              minlength="6"
+              class="w-full pl-12 pr-4 py-3 border-2 border-slate-200 rounded-xl input-focus focus:border-indigo-500 focus:outline-none transition-all"
+              placeholder="••••••••"
+            >
+          </div>
+        </div>
+
+        <!-- Recordarme -->
+        <div class="flex items-center justify-between">
+          <label class="flex items-center gap-2 cursor-pointer">
+            <input type="checkbox" id="remember" class="w-4 h-4 rounded border-slate-300 text-indigo-600 focus:ring-indigo-500">
+            <span class="text-sm text-slate-600">Recordarme</span>
+          </label>
+        </div>
+
+        <!-- Botón de Login -->
+        <button 
+          type="submit"
+          id="loginBtn"
+          class="w-full py-4 bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-bold rounded-xl hover:from-indigo-700 hover:to-purple-700 transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
+        >
+          Iniciar Sesión
+        </button>
+
+        <!-- Mensaje de error -->
+        <div id="errorMessage" class="hidden p-4 bg-red-50 border border-red-200 rounded-xl">
+          <p class="text-sm text-red-600 font-semibold" id="errorText"></p>
+        </div>
+
+        <!-- Mensaje de éxito -->
+        <div id="successMessage" class="hidden p-4 bg-emerald-50 border border-emerald-200 rounded-xl">
+          <p class="text-sm text-emerald-600 font-semibold" id="successText"></p>
+        </div>
+      </form>
+
+      <!-- Divider -->
+      <div class="flex items-center my-6">
+        <div class="flex-1 border-t border-slate-200"></div>
+        <span class="px-4 text-sm text-slate-400">o</span>
+        <div class="flex-1 border-t border-slate-200"></div>
+      </div>
+
+      <!-- Link a Registro -->
+      <p class="text-center text-slate-600">
+        ¿No tienes una cuenta? 
+        <a href="register.html" class="text-indigo-600 hover:text-indigo-700 font-bold hover:underline">
+          Regístrate aquí
+        </a>
+      </p>
+    </div>
+
+    <!-- Footer -->
+    <p class="text-center text-white/60 text-sm mt-8">
+      © 2024 OMR System. Todos los derechos reservados.
+    </p>
+  </div>
+
+  <script>
+    // Login form
+    document.getElementById('loginForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+      const rememberMe = document.getElementById('remember').checked;
+      const loginBtn = document.getElementById('loginBtn');
+      
+      // Deshabilitar botón
+      loginBtn.disabled = true;
+      loginBtn.innerHTML = '<span class="inline-block animate-spin mr-2">⏳</span> Iniciando...';
+      loginBtn.classList.add('opacity-75', 'cursor-not-allowed');
+      
+      // Ocultar mensajes anteriores
+      document.getElementById('errorMessage').classList.add('hidden');
+      document.getElementById('successMessage').classList.add('hidden');
+
+      try {
+        const result = await AuthService.login(email, password, rememberMe);
+        
+        if (result.success) {
+          // Mostrar mensaje de éxito
+          const successDiv = document.getElementById('successMessage');
+          const successText = document.getElementById('successText');
+          successText.textContent = `¡Bienvenido, ${result.user.name}! Redirigiendo...`;
+          successDiv.classList.remove('hidden');
+
+          // Redirigir al dashboard
+          setTimeout(() => {
+            window.location.href = 'index.html';
+          }, 1500);
+        } else {
+          // Mostrar error
+          const errorDiv = document.getElementById('errorMessage');
+          const errorText = document.getElementById('errorText');
+          errorText.textContent = result.message || 'Error al iniciar sesión';
+          errorDiv.classList.remove('hidden');
+          
+          // Restaurar botón
+          loginBtn.disabled = false;
+          loginBtn.innerHTML = 'Iniciar Sesión';
+          loginBtn.classList.remove('opacity-75', 'cursor-not-allowed');
+        }
+      } catch (error) {
+        console.error('Error:', error);
+        
+        // Mostrar error de conexión
+        const errorDiv = document.getElementById('errorMessage');
+        const errorText = document.getElementById('errorText');
+        errorText.textContent = 'Error al conectar con el servidor. Verifica que el backend esté corriendo.';
+        errorDiv.classList.remove('hidden');
+        
+        // Restaurar botón
+        loginBtn.disabled = false;
+        loginBtn.innerHTML = 'Iniciar Sesión';
+        loginBtn.classList.remove('opacity-75', 'cursor-not-allowed');
+      }
+    });
+
+    // Verificar si ya está logueado
+    window.addEventListener('load', () => {
+      if (AuthService.isAuthenticated()) {
+        window.location.href = 'index.html';
+      }
+    });
+  </script>
+</body>
+</html>

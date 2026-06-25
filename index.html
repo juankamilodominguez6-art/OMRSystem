@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OMR System</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="js/auth.js"></script>
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+  </style>
+</head>
+<body class="bg-gradient-to-br from-slate-50 via-blue-50 to-slate-100 min-h-screen py-12">
+  <div class="max-w-7xl mx-auto px-6">
+    <!-- Header -->
+    <div class="text-center mb-12">
+      <img src="./assets/logo.jpg" alt="OMR System Logo" class="inline-block w-64 h-auto mb-6 rounded-3xl shadow-2xl">
+      <h1 class="text-5xl font-black text-slate-900 mb-4">OMR System</h1>
+      <p class="text-xl text-slate-600 max-w-2xl mx-auto">Sistema profesional para tiendas de abarrotes y fruver. Gestión completa de ventas, inventario y caja.</p>
+      <div id="userInfo" class="mt-6"></div>
+    </div>
+
+    <!-- Modules Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+      <!-- POS Module -->
+      <a id="posLink" href="pos-panel.html" class="group">
+        <div class="bg-white rounded-3xl shadow-xl border border-slate-200 overflow-hidden transition-all duration-300 group-hover:-translate-y-3 group-hover:shadow-2xl">
+          <div class="bg-gradient-to-r from-blue-500 to-indigo-600 h-2"></div>
+          <div class="p-8">
+            <div class="w-20 h-20 bg-gradient-to-br from-blue-100 to-indigo-100 rounded-2xl flex items-center justify-center mb-6 shadow-inner">
+              <span class="text-4xl">💵</span>
+            </div>
+            <h2 class="text-2xl font-black text-slate-900 mb-3">Panel de Ventas (POS)</h2>
+            <p class="text-slate-600 mb-6">Interfaz moderna con teclado numérico, categorías, carrito y recibos personalizables.</p>
+            <div class="flex flex-wrap gap-2 mb-6">
+              <span class="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-xs font-bold">Carrito</span>
+              <span class="px-3 py-1 bg-emerald-100 text-emerald-800 rounded-full text-xs font-bold">Recibos</span>
+              <span class="px-3 py-1 bg-purple-100 text-purple-800 rounded-full text-xs font-bold">Caja</span>
+            </div>
+            <div class="flex items-center text-blue-600 font-bold">
+              <span>Ir al Panel</span>
+              <span class="ml-2 text-xl">→</span>
+            </div>
+          </div>
+        </div>
+      </a>
+
+      <!-- Admin Module -->
+      <a href="admin-dashboard.html" class="group">
+        <div class="bg-white rounded-3xl shadow-xl border border-slate-200 overflow-hidden transition-all duration-300 group-hover:-translate-y-3 group-hover:shadow-2xl">
+          <div class="bg-gradient-to-r from-emerald-500 to-green-600 h-2"></div>
+          <div class="p-8">
+            <div class="w-20 h-20 bg-gradient-to-br from-emerald-100 to-green-100 rounded-2xl flex items-center justify-center mb-6 shadow-inner">
+              <span class="text-4xl">📊</span>
+            </div>
+            <h2 class="text-2xl font-black text-slate-900 mb-3">Panel de Administración</h2>
+            <p class="text-slate-600 mb-6">Gestión de productos, clientes, proveedores, inventario y reportes detallados.</p>
+            <div class="flex flex-wrap gap-2 mb-6">
+              <span class="px-3 py-1 bg-emerald-100 text-emerald-800 rounded-full text-xs font-bold">Productos</span>
+              <span class="px-3 py-1 bg-amber-100 text-amber-800 rounded-full text-xs font-bold">Clientes</span>
+              <span class="px-3 py-1 bg-pink-100 text-pink-800 rounded-full text-xs font-bold">Inventario</span>
+            </div>
+            <div class="flex items-center text-emerald-600 font-bold">
+              <span>Ir al Panel</span>
+              <span class="ml-2 text-xl">→</span>
+            </div>
+          </div>
+        </div>
+      </a>
+
+      <!-- Cash Register -->
+      <a id="cashLink" href="cash-register.html" class="group">
+        <div class="bg-white rounded-3xl shadow-xl border border-slate-200 overflow-hidden transition-all duration-300 group-hover:-translate-y-3 group-hover:shadow-2xl">
+          <div class="bg-gradient-to-r from-purple-500 to-pink-600 h-2"></div>
+          <div class="p-8">
+            <div class="w-20 h-20 bg-gradient-to-br from-purple-100 to-pink-100 rounded-2xl flex items-center justify-center mb-6 shadow-inner">
+              <span class="text-4xl">💰</span>
+            </div>
+            <h2 class="text-2xl font-black text-slate-900 mb-3">Caja y Cierre Diario</h2>
+            <p class="text-slate-600 mb-6">Movimientos de caja, cierre diario con reportes y resumen detallado de ventas.</p>
+            <div class="flex flex-wrap gap-2 mb-6">
+              <span class="px-3 py-1 bg-purple-100 text-purple-800 rounded-full text-xs font-bold">Apertura</span>
+              <span class="px-3 py-1 bg-orange-100 text-orange-800 rounded-full text-xs font-bold">Movimientos</span>
+              <span class="px-3 py-1 bg-rose-100 text-rose-800 rounded-full text-xs font-bold">Cierre</span>
+            </div>
+            <div class="flex items-center text-purple-600 font-bold">
+              <span>Ir al Panel</span>
+              <span class="ml-2 text-xl">→</span>
+            </div>
+          </div>
+        </div>
+      </a>
+
+      <!-- User Management -->
+      <a id="userManagementLink" href="user-management.html" class="group">
+        <div class="bg-white rounded-3xl shadow-xl border border-slate-200 overflow-hidden transition-all duration-300 group-hover:-translate-y-3 group-hover:shadow-2xl">
+          <div class="bg-gradient-to-r from-amber-500 to-orange-600 h-2"></div>
+          <div class="p-8">
+            <div class="w-20 h-20 bg-gradient-to-br from-amber-100 to-orange-100 rounded-2xl flex items-center justify-center mb-6 shadow-inner">
+              <span class="text-4xl">👥</span>
+            </div>
+            <h2 class="text-2xl font-black text-slate-900 mb-3">Gestión de Usuarios</h2>
+            <p class="text-slate-600 mb-6">Añadir, editar y eliminar usuarios, aprobar pendientes y gestionar roles.</p>
+            <div class="flex flex-wrap gap-2 mb-6">
+              <span class="px-3 py-1 bg-amber-100 text-amber-800 rounded-full text-xs font-bold">Roles</span>
+              <span class="px-3 py-1 bg-rose-100 text-rose-800 rounded-full text-xs font-bold">Pendientes</span>
+            </div>
+            <div class="flex items-center text-amber-600 font-bold">
+              <span>Ir al Panel</span>
+              <span class="ml-2 text-xl">→</span>
+            </div>
+          </div>
+        </div>
+      </a>
+
+      <!-- Customers -->
+      <a href="customers.html" class="group">
+        <div class="bg-white rounded-3xl shadow-xl border border-slate-200 overflow-hidden transition-all duration-300 group-hover:-translate-y-3 group-hover:shadow-2xl">
+          <div class="bg-gradient-to-r from-cyan-500 to-blue-600 h-2"></div>
+          <div class="p-8">
+            <div class="w-20 h-20 bg-gradient-to-br from-cyan-100 to-blue-100 rounded-2xl flex items-center justify-center mb-6 shadow-inner">
+              <span class="text-4xl">🧑‍🤝‍🧑</span>
+            </div>
+            <h2 class="text-2xl font-black text-slate-900 mb-3">Clientes</h2>
+            <p class="text-slate-600 mb-6">Gestión de clientes, información fiscal y seguimiento de compras.</p>
+            <div class="flex flex-wrap gap-2 mb-6">
+              <span class="px-3 py-1 bg-cyan-100 text-cyan-800 rounded-full text-xs font-bold">Fiscal</span>
+            </div>
+            <div class="flex items-center text-cyan-600 font-bold">
+              <span>Ir al Panel</span>
+              <span class="ml-2 text-xl">→</span>
+            </div>
+          </div>
+        </div>
+      </a>
+
+      <!-- Reports -->
+      <a href="reports.html" class="group">
+        <div class="bg-white rounded-3xl shadow-xl border border-slate-200 overflow-hidden transition-all duration-300 group-hover:-translate-y-3 group-hover:shadow-2xl">
+          <div class="bg-gradient-to-r from-violet-500 to-purple-600 h-2"></div>
+          <div class="p-8">
+            <div class="w-20 h-20 bg-gradient-to-br from-violet-100 to-purple-100 rounded-2xl flex items-center justify-center mb-6 shadow-inner">
+              <span class="text-4xl">📈</span>
+            </div>
+            <h2 class="text-2xl font-black text-slate-900 mb-3">Reportes</h2>
+            <p class="text-slate-600 mb-6">Reportes detallados de ventas, inventario y rendimiento del negocio.</p>
+            <div class="flex flex-wrap gap-2 mb-6">
+              <span class="px-3 py-1 bg-violet-100 text-violet-800 rounded-full text-xs font-bold">Estadísticas</span>
+            </div>
+            <div class="flex items-center text-violet-600 font-bold">
+              <span>Ir al Panel</span>
+              <span class="ml-2 text-xl">→</span>
+            </div>
+          </div>
+        </div>
+      </a>
+
+      <!-- Settings -->
+      <a href="settings.html" class="group">
+        <div class="bg-white rounded-3xl shadow-xl border border-slate-200 overflow-hidden transition-all duration-300 group-hover:-translate-y-3 group-hover:shadow-2xl">
+          <div class="bg-gradient-to-r from-slate-500 to-gray-600 h-2"></div>
+          <div class="p-8">
+            <div class="w-20 h-20 bg-gradient-to-br from-slate-100 to-gray-100 rounded-2xl flex items-center justify-center mb-6 shadow-inner">
+              <span class="text-4xl">⚙️</span>
+            </div>
+            <h2 class="text-2xl font-black text-slate-900 mb-3">Configuración</h2>
+            <p class="text-slate-600 mb-6">Configuración general del sistema, empresa e información fiscal.</p>
+            <div class="flex flex-wrap gap-2 mb-6">
+              <span class="px-3 py-1 bg-slate-100 text-slate-800 rounded-full text-xs font-bold">Empresa</span>
+            </div>
+            <div class="flex items-center text-slate-600 font-bold">
+              <span>Ir al Panel</span>
+              <span class="ml-2 text-xl">→</span>
+            </div>
+          </div>
+        </div>
+      </a>
+
+      <!-- Suppliers -->
+      <a id="suppliersLink" href="suppliers.html" class="group">
+        <div class="bg-white rounded-3xl shadow-xl border border-slate-200 overflow-hidden transition-all duration-300 group-hover:-translate-y-3 group-hover:shadow-2xl">
+          <div class="bg-gradient-to-r from-teal-500 to-emerald-600 h-2"></div>
+          <div class="p-8">
+            <div class="w-20 h-20 bg-gradient-to-br from-teal-100 to-emerald-100 rounded-2xl flex items-center justify-center mb-6 shadow-inner">
+              <span class="text-4xl">🏪</span>
+            </div>
+            <h2 class="text-2xl font-black text-slate-900 mb-3">Proveedores</h2>
+            <p class="text-slate-600 mb-6">Gestión de proveedores, compras y seguimiento de pedidos.</p>
+            <div class="flex flex-wrap gap-2 mb-6">
+              <span class="px-3 py-1 bg-teal-100 text-teal-800 rounded-full text-xs font-bold">Compras</span>
+            </div>
+            <div class="flex items-center text-teal-600 font-bold">
+              <span>Ir al Panel</span>
+              <span class="ml-2 text-xl">→</span>
+            </div>
+          </div>
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <script>
+    // Verificar autenticación al cargar
+    window.addEventListener('load', () => {
+      if (!AuthService.isAuthenticated()) {
+        window.location.href = 'login.html';
+        return;
+      }
+
+      const user = AuthService.getUser();
+      if (user) {
+        // Mostrar información del usuario
+        const userInfoDiv = document.getElementById('userInfo');
+        userInfoDiv.innerHTML = `
+          <div class="flex items-center justify-center gap-4">
+            <div class="bg-white rounded-2xl px-6 py-3 shadow-lg">
+              <p class="text-sm text-slate-600">Bienvenido</p>
+              <p class="text-lg font-bold text-slate-900">${user.name}</p>
+              <p class="text-xs text-slate-500">(${user.email})</p>
+            </div>
+            <button onclick="AuthService.logout()" class="px-6 py-3 bg-red-500 hover:bg-red-600 text-white rounded-xl font-semibold transition-all shadow-lg">
+              Cerrar Sesión
+            </button>
+          </div>
+        `;
+        
+        // Ocultar opciones para el dueño principal (dueno@omr.com)
+        if (user.email === 'dueno@omr.com') {
+          // Ocultar: Panel de Ventas (POS), Caja y Cierre Diario, Proveedores
+          const posLink = document.getElementById('posLink');
+          const cashLink = document.getElementById('cashLink');
+          const suppliersLink = document.getElementById('suppliersLink');
+          if (posLink) posLink.style.display = 'none';
+          if (cashLink) cashLink.style.display = 'none';
+          if (suppliersLink) suppliersLink.style.display = 'none';
+        } else {
+          // Ocultar la opción de Gestión de Usuarios si no es el dueño principal
+          const userManagementLink = document.getElementById('userManagementLink');
+          if (userManagementLink) {
+            userManagementLink.style.display = 'none';
+          }
+        }
+      }
+    });
+  </script>
+</body>
+</html>

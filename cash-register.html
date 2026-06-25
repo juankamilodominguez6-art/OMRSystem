@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Caja y Cierre Diario</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="js/auth.js"></script>
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+<body class="bg-slate-100 min-h-screen">
+    <!-- Header -->
+    <header class="bg-gradient-to-r from-purple-600 to-pink-600 text-white shadow-xl sticky top-0 z-30">
+        <div class="max-w-7xl mx-auto px-4 py-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center gap-4">
+                    <div class="w-12 h-12 bg-white/20 rounded-2xl flex items-center justify-center">
+                        <span class="text-2xl">💰</span>
+                    </div>
+                    <div>
+                        <h1 class="text-xl font-bold">Gestión de Caja</h1>
+                        <p class="text-purple-200 text-sm">Apertura, movimientos y cierre diario</p>
+                    </div>
+                </div>
+                <div class="flex items-center gap-4">
+                    <div class="text-right">
+                        <p class="text-sm text-purple-200">Fecha</p>
+                        <p class="font-bold" id="currentDate"></p>
+                    </div>
+                    <a href="index.html" class="px-4 py-2 bg-white/20 hover:bg-white/30 rounded-xl font-semibold transition-all">
+                        ← Volver
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 py-6">
+        <!-- Session Status -->
+        <div class="mb-6">
+            <div id="sessionStatus" class="bg-white rounded-2xl shadow-lg border border-slate-200 p-6 flex items-center justify-between">
+                <div class="flex items-center gap-6">
+                    <div class="w-20 h-20 bg-gradient-to-br from-emerald-100 to-green-100 rounded-3xl flex items-center justify-center text-5xl">✅</div>
+                    <div>
+                        <h2 class="text-2xl font-black text-slate-900">Caja Abierta</h2>
+                        <p class="text-slate-600">Sesión iniciada hoy a las 08:30 AM</p>
+                    </div>
+                </div>
+                <div class="flex gap-3">
+                    <button onclick="openMovementModal('in')" class="px-5 py-2.5 bg-gradient-to-r from-emerald-500 to-green-500 text-white font-bold rounded-xl shadow-lg hover:from-emerald-600 hover:to-green-600">
+                        + Entrada
+                    </button>
+                    <button onclick="openMovementModal('out')" class="px-5 py-2.5 bg-gradient-to-r from-red-500 to-rose-500 text-white font-bold rounded-xl shadow-lg hover:from-red-600 hover:to-rose-600">
+                        - Salida
+                    </button>
+                    <button onclick="closeSession()" class="px-5 py-2.5 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-bold rounded-xl shadow-lg hover:from-blue-700 hover:to-indigo-700">
+                        Cerrar Caja
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Stats Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
+            <div class="bg-gradient-to-br from-slate-50 to-white rounded-2xl shadow-lg border border-slate-200 p-6">
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="w-12 h-12 bg-gradient-to-br from-blue-100 to-indigo-100 rounded-2xl flex items-center justify-center">
+                        <span class="text-2xl">💵</span>
+                    </div>
+                    <p class="text-slate-600 font-semibold">Fondo Inicial</p>
+                </div>
+                <p class="text-3xl font-black text-slate-900">$500.00</p>
+            </div>
+            <div class="bg-gradient-to-br from-slate-50 to-white rounded-2xl shadow-lg border border-slate-200 p-6">
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="w-12 h-12 bg-gradient-to-br from-emerald-100 to-green-100 rounded-2xl flex items-center justify-center">
+                        <span class="text-2xl">📊</span>
+                    </div>
+                    <p class="text-slate-600 font-semibold">Ventas del Día</p>
+                </div>
+                <p class="text-3xl font-black text-emerald-700">$2,845.50</p>
+            </div>
+            <div class="bg-gradient-to-br from-slate-50 to-white rounded-2xl shadow-lg border border-slate-200 p-6">
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="w-12 h-12 bg-gradient-to-br from-blue-100 to-indigo-100 rounded-2xl flex items-center justify-center">
+                        <span class="text-2xl">💲</span>
+                    </div>
+                    <p class="text-slate-600 font-semibold">Total en Caja</p>
+                </div>
+                <p class="text-3xl font-black text-blue-700">$3,245.50</p>
+            </div>
+            <div class="bg-gradient-to-br from-slate-50 to-white rounded-2xl shadow-lg border border-slate-200 p-6">
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="w-12 h-12 bg-gradient-to-br from-amber-100 to-orange-100 rounded-2xl flex items-center justify-center">
+                        <span class="text-2xl">📝</span>
+                    </div>
+                    <p class="text-slate-600 font-semibold">Movimientos</p>
+                </div>
+                <p class="text-3xl font-black text-amber-700">12</p>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <!-- Payment Breakdown -->
+            <div class="bg-white rounded-2xl shadow-lg border border-slate-200 overflow-hidden">
+                <div class="p-6 border-b border-slate-200 bg-gradient-to-r from-slate-50 to-white">
+                    <h3 class="text-xl font-black text-slate-900">Distribución de Pagos</h3>
+                </div>
+                <div class="p-6 space-y-4">
+                    <div class="flex items-center justify-between p-4 bg-gradient-to-r from-emerald-50 to-green-50 rounded-xl border border-emerald-200">
+                        <div class="flex items-center gap-3">
+                            <span class="text-3xl">💵</span>
+                            <div>
+                                <p class="font-bold text-emerald-900">Efectivo</p>
+                                <p class="text-sm text-emerald-700">45 ventas</p>
+                            </div>
+                        </div>
+                        <p class="text-2xl font-black text-emerald-700">$1,950.00</p>
+                    </div>
+                    <div class="flex items-center justify-between p-4 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl border border-blue-200">
+                        <div class="flex items-center gap-3">
+                            <span class="text-3xl">💳</span>
+                            <div>
+                                <p class="font-bold text-blue-900">Tarjeta</p>
+                                <p class="text-sm text-blue-700">28 ventas</p>
+                            </div>
+                        </div>
+                        <p class="text-2xl font-black text-blue-700">$745.50</p>
+                    </div>
+                    <div class="flex items-center justify-between p-4 bg-gradient-to-r from-purple-50 to-pink-50 rounded-xl border border-purple-200">
+                        <div class="flex items-center gap-3">
+                            <span class="text-3xl">⏳</span>
+                            <div>
+                                <p class="font-bold text-purple-900">Crédito</p>
+                                <p class="text-sm text-purple-700">5 ventas</p>
+                            </div>
+                        </div>
+                        <p class="text-2xl font-black text-purple-700">$150.00</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Movements -->
+            <div class="bg-white rounded-2xl shadow-lg border border-slate-200 overflow-hidden">
+                <div class="p-6 border-b border-slate-200 bg-gradient-to-r from-slate-50 to-white">
+                    <h3 class="text-xl font-black text-slate-900">Movimientos de Hoy</h3>
+                </div>
+                <div class="divide-y divide-slate-100 max-h-96 overflow-y-auto">
+                    <div class="p-4 flex items-center justify-between hover:bg-slate-50">
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 h-12 bg-gradient-to-br from-emerald-100 to-green-100 rounded-xl flex items-center justify-center text-2xl">📈</div>
+                            <div>
+                                <p class="font-bold text-slate-900">Apertura de Caja</p>
+                                <p class="text-sm text-slate-500">08:30 AM</p>
+                            </div>
+                        </div>
+                        <p class="text-lg font-black text-emerald-700">+ $500.00</p>
+                    </div>
+                    <div class="p-4 flex items-center justify-between hover:bg-slate-50">
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 h-12 bg-gradient-to-br from-red-100 to-rose-100 rounded-xl flex items-center justify-center text-2xl">📉</div>
+                            <div>
+                                <p class="font-bold text-slate-900">Compra de suministros</p>
+                                <p class="text-sm text-slate-500">09:45 AM - Juan</p>
+                            </div>
+                        </div>
+                        <p class="text-lg font-black text-red-700">- $85.00</p>
+                    </div>
+                    <div class="p-4 flex items-center justify-between hover:bg-slate-50">
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 h-12 bg-gradient-to-br from-blue-100 to-indigo-100 rounded-xl flex items-center justify-center text-2xl">💵</div>
+                            <div>
+                                <p class="font-bold text-slate-900">Venta #1245</p>
+                                <p class="text-sm text-slate-500">10:20 AM</p>
+                            </div>
+                        </div>
+                        <p class="text-lg font-black text-emerald-700">+ $42.50</p>
+                    </div>
+                    <div class="p-4 flex items-center justify-between hover:bg-slate-50">
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 h-12 bg-gradient-to-br from-blue-100 to-indigo-100 rounded-xl flex items-center justify-center text-2xl">💵</div>
+                            <div>
+                                <p class="font-bold text-slate-900">Venta #1246</p>
+                                <p class="text-sm text-slate-500">10:45 AM</p>
+                            </div>
+                        </div>
+                        <p class="text-lg font-black text-emerald-700">+ $28.00</p>
+                    </div>
+                    <div class="p-4 flex items-center justify-between hover:bg-slate-50">
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 h-12 bg-gradient-to-br from-emerald-100 to-green-100 rounded-xl flex items-center justify-center text-2xl">📈</div>
+                            <div>
+                                <p class="font-bold text-slate-900">Depósito extra</p>
+                                <p class="text-sm text-slate-500">12:15 PM - Gerente</p>
+                            </div>
+                        </div>
+                        <p class="text-lg font-black text-emerald-700">+ $200.00</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Summary for Closing -->
+        <div class="mt-6 bg-white rounded-2xl shadow-lg border border-slate-200 p-8">
+            <h3 class="text-xl font-black text-slate-900 mb-6">Resumen para Cierre de Caja</h3>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                <div class="p-6 bg-gradient-to-br from-slate-50 to-white rounded-2xl border border-slate-200">
+                    <p class="text-slate-600 font-semibold mb-2">Subtotal Ventas</p>
+                    <p class="text-3xl font-black text-slate-900">$2,411.44</p>
+                </div>
+                <div class="p-6 bg-gradient-to-br from-slate-50 to-white rounded-2xl border border-slate-200">
+                    <p class="text-slate-600 font-semibold mb-2">Impuestos (18%)</p>
+                    <p class="text-3xl font-black text-amber-700">$434.06</p>
+                </div>
+                <div class="p-6 bg-gradient-to-br from-emerald-50 to-white rounded-2xl border border-emerald-200">
+                    <p class="text-slate-600 font-semibold mb-2">Total Neto</p>
+                    <p class="text-3xl font-black text-emerald-700">$2,845.50</p>
+                </div>
+            </div>
+            <div class="flex items-center justify-between">
+                <div>
+                    <p class="text-slate-700 text-sm">Cierre automático genera reporte detallado en PDF y Excel</p>
+                </div>
+                <button onclick="confirmClose()" class="px-8 py-4 bg-gradient-to-r from-purple-600 to-pink-600 text-white font-black text-lg rounded-2xl shadow-xl hover:from-purple-700 hover:to-pink-700">
+                    🔒 Cerrar Caja y Generar Reporte
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <!-- Movement Modal -->
+    <div id="movementModal" class="fixed inset-0 bg-black/50 z-50 hidden items-center justify-center">
+        <div class="bg-white rounded-3xl shadow-2xl max-w-md w-full mx-4 overflow-hidden">
+            <div id="movementModalHeader" class="bg-gradient-to-r from-emerald-500 to-green-500 text-white p-6">
+                <h3 class="text-xl font-bold">Nueva Entrada</h3>
+            </div>
+            <div class="p-6 space-y-4">
+                <input id="movementReason" placeholder="Motivo" class="w-full px-4 py-3 border border-slate-200 rounded-xl">
+                <input id="movementAmount" type="number" placeholder="Monto" step="0.01" class="w-full px-4 py-3 border border-slate-200 rounded-xl text-xl font-bold">
+                <textarea placeholder="Notas (opcional)" class="w-full px-4 py-3 border border-slate-200 rounded-xl h-24"></textarea>
+                <div class="flex gap-3 pt-4">
+                    <button onclick="closeMovementModal()" class="flex-1 px-4 py-3 bg-slate-100 text-slate-700 font-bold rounded-xl">Cancelar</button>
+                    <button onclick="saveMovement()" class="flex-1 px-4 py-3 bg-gradient-to-r from-emerald-500 to-green-500 text-white font-bold rounded-xl">Guardar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('currentDate').textContent = new Date().toLocaleDateString('es-ES', { 
+            weekday: 'long', 
+            year: 'numeric', 
+            month: 'long', 
+            day: 'numeric' 
+        });
+
+        function openMovementModal(type) {
+            const modal = document.getElementById('movementModal');
+            const header = document.getElementById('movementModalHeader');
+            
+            if (type === 'in') {
+                header.className = 'bg-gradient-to-r from-emerald-500 to-green-500 text-white p-6';
+                header.querySelector('h3').textContent = 'Nueva Entrada';
+            } else {
+                header.className = 'bg-gradient-to-r from-red-500 to-rose-500 text-white p-6';
+                header.querySelector('h3').textContent = 'Nueva Salida';
+            }
+            
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function closeMovementModal() {
+            document.getElementById('movementModal').classList.add('hidden');
+            document.getElementById('movementModal').classList.remove('flex');
+        }
+
+        function saveMovement() {
+            alert('✅ Movimiento guardado exitosamente!');
+            closeMovementModal();
+        }
+
+        function closeSession() {
+            if (confirm('¿Seguro que quieres cerrar la caja? Esto generará el reporte de cierre.')) {
+                confirmClose();
+            }
+        }
+
+        function confirmClose() {
+            alert('🔒 Caja cerrada exitosamente!\n\n✅ Reporte PDF generado\n✅ Reporte Excel generado\n✅ Registro guardado en el sistema');
+        }
+
+        // Verificar autenticación al cargar
+        window.addEventListener('load', () => {
+            AuthService.requireAuth();
+            
+            const user = AuthService.getUser();
+            if (user) {
+                // Si es el dueño, redirigir al dashboard
+                if (user.email === 'dueno@omr.com') {
+                    window.location.href = 'index.html';
+                    return;
+                }
+            }
+        });
+    </script>
+</body>
+</html>

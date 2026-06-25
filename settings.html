@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Configuración</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="js/auth.js"></script>
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .sidebar-link:hover { background: linear-gradient(90deg, #eff6ff, #dbeafe); }
+        .sidebar-link.active { background: linear-gradient(90deg, #dbeafe, #bfdbfe); border-left: 4px solid #3b82f6; }
+    </style>
+</head>
+<body class="bg-slate-100 min-h-screen">
+    <div class="flex min-h-screen">
+        <!-- Sidebar -->
+        <aside class="w-72 bg-white border-r border-slate-200 shadow-xl">
+            <div class="p-6 border-b border-slate-200">
+                <div class="flex items-center gap-4">
+                    <div class="w-12 h-12 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-2xl flex items-center justify-center shadow-lg">
+                        <span class="text-2xl text-white">🏪</span>
+                    </div>
+                    <div>
+                        <h1 class="text-xl font-black text-slate-900">Mi Negocio</h1>
+                        <p class="text-sm text-slate-500">Panel de Admin</p>
+                    </div>
+                </div>
+            </div>
+            
+            <nav class="p-4 space-y-2">
+                <a href="index.html" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-xl text-slate-700 font-semibold">
+                    <span>📊</span>
+                    Inicio
+                </a>
+                <a href="pos-panel.html" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-xl text-slate-700 font-semibold">
+                    <span>💵</span>
+                    Ventas (POS)
+                </a>
+                <a href="admin-dashboard.html" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-xl text-slate-700 font-semibold">
+                    <span>📦</span>
+                    Productos
+                </a>
+                <a href="customers.html" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-xl text-slate-700 font-semibold">
+                    <span>👥</span>
+                    Clientes
+                </a>
+                <a href="suppliers.html" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-xl text-slate-700 font-semibold">
+                    <span>🏭</span>
+                    Proveedores
+                </a>
+                <a href="reports.html" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-xl text-slate-700 font-semibold">
+                    <span>📈</span>
+                    Reportes
+                </a>
+                <a href="cash-register.html" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-xl text-slate-700 font-semibold">
+                    <span>💰</span>
+                    Caja
+                </a>
+                <a href="#" class="sidebar-link active flex items-center gap-3 px-4 py-3 rounded-xl text-blue-700 font-semibold">
+                    <span>⚙️</span>
+                    Configuración
+                </a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1">
+            <!-- Header -->
+            <header class="bg-white border-b border-slate-200 shadow-sm px-6 py-4 sticky top-0 z-20">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <h2 class="text-2xl font-black text-slate-900">Configuración</h2>
+                        <p class="text-slate-500 text-sm">Ajustes del sistema</p>
+                    </div>
+                    <div class="flex items-center gap-4">
+                        <div class="flex items-center gap-3 px-4 py-2 bg-slate-100 rounded-xl">
+                            <div class="w-10 h-10 bg-gradient-to-br from-amber-100 to-orange-100 rounded-full flex items-center justify-center">
+                                <span class="font-bold text-amber-700">JP</span>
+                            </div>
+                            <span class="font-semibold text-slate-700">Juan Pérez</span>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <div class="p-6 space-y-6 max-w-7xl mx-auto">
+                <!-- Business Info -->
+                <div class="bg-white rounded-2xl shadow-lg border border-slate-200 overflow-hidden">
+                    <div class="p-6 border-b border-slate-200 bg-gradient-to-r from-slate-50 to-white">
+                        <h3 class="text-xl font-black text-slate-900 flex items-center gap-2">
+                            <span>🏪</span> Información del Negocio
+                        </h3>
+                    </div>
+                    <div class="p-6 space-y-4">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-bold text-slate-700 mb-2">Nombre del Negocio</label>
+                                <input type="text" value="Mi Tienda" class="w-full px-4 py-3 border border-slate-200 rounded-xl focus:border-blue-500">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-bold text-slate-700 mb-2">NIT</label>
+                                <input type="text" value="900123456-7" class="w-full px-4 py-3 border border-slate-200 rounded-xl focus:border-blue-500">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-bold text-slate-700 mb-2">Dirección</label>
+                                <input type="text" value="Calle 123 #45-67" class="w-full px-4 py-3 border border-slate-200 rounded-xl focus:border-blue-500">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-bold text-slate-700 mb-2">Teléfono</label>
+                                <input type="text" value="+57 300 123 4567" class="w-full px-4 py-3 border border-slate-200 rounded-xl focus:border-blue-500">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-bold text-slate-700 mb-2">Email</label>
+                                <input type="email" value="contacto@mitienda.com" class="w-full px-4 py-3 border border-slate-200 rounded-xl focus:border-blue-500">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-bold text-slate-700 mb-2">Ciudad</label>
+                                <input type="text" value="Bogotá" class="w-full px-4 py-3 border border-slate-200 rounded-xl focus:border-blue-500">
+                            </div>
+                        </div>
+                        <button onclick="saveSettings()" class="px-6 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-bold rounded-xl hover:from-blue-700 hover:to-indigo-700 transition-all">
+                            Guardar Cambios
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Tax Settings -->
+                <div class="bg-white rounded-2xl shadow-lg border border-slate-200 overflow-hidden">
+                    <div class="p-6 border-b border-slate-200 bg-gradient-to-r from-slate-50 to-white">
+                        <h3 class="text-xl font-black text-slate-900 flex items-center gap-2">
+                            <span>💰</span> Configuración de Impuestos
+                        </h3>
+                    </div>
+                    <div class="p-6 space-y-4">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-bold text-slate-700 mb-2">IVA (%)</label>
+                                <input type="number" value="18" step="0.1" class="w-full px-4 py-3 border border-slate-200 rounded-xl focus:border-blue-500">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-bold text-slate-700 mb-2">Retención en la Fuente (%)</label>
+                                <input type="number" value="2.5" step="0.1" class="w-full px-4 py-3 border border-slate-200 rounded-xl focus:border-blue-500">
+                            </div>
+                        </div>
+                        <button onclick="saveSettings()" class="px-6 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-bold rounded-xl hover:from-blue-700 hover:to-indigo-700 transition-all">
+                            Guardar Cambios
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Receipt Settings -->
+                <div class="bg-white rounded-2xl shadow-lg border border-slate-200 overflow-hidden">
+                    <div class="p-6 border-b border-slate-200 bg-gradient-to-r from-slate-50 to-white">
+                        <h3 class="text-xl font-black text-slate-900 flex items-center gap-2">
+                            <span>🖨️</span> Configuración de Recibos
+                        </h3>
+                    </div>
+                    <div class="p-6 space-y-4">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-bold text-slate-700 mb-2">Tamaño de Papel</label>
+                                <select class="w-full px-4 py-3 border border-slate-200 rounded-xl focus:border-blue-500">
+                                    <option>58mm</option>
+                                    <option selected>80mm</option>
+                                    <option>A4</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-bold text-slate-700 mb-2">Mensaje en Recibo</label>
+                                <input type="text" value="¡Gracias por su compra!" class="w-full px-4 py-3 border border-slate-200 rounded-xl focus:border-blue-500">
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <input type="checkbox" id="printLogo" checked class="w-5 h-5 rounded">
+                            <label for="printLogo" class="text-sm font-semibold text-slate-700">Imprimir logo en recibo</label>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <input type="checkbox" id="printFooter" checked class="w-5 h-5 rounded">
+                            <label for="printFooter" class="text-sm font-semibold text-slate-700">Imprimir pie de página</label>
+                        </div>
+                        <button onclick="saveSettings()" class="px-6 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-bold rounded-xl hover:from-blue-700 hover:to-indigo-700 transition-all">
+                            Guardar Cambios
+                        </button>
+                    </div>
+                </div>
+
+                <!-- User Management -->
+                <div class="bg-white rounded-2xl shadow-lg border border-slate-200 overflow-hidden">
+                    <div class="p-6 border-b border-slate-200 bg-gradient-to-r from-slate-50 to-white">
+                        <div class="flex items-center justify-between">
+                            <h3 class="text-xl font-black text-slate-900 flex items-center gap-2">
+                                <span>👤</span> Gestión de Usuarios
+                            </h3>
+                            <button onclick="openUserModal()" class="px-4 py-2 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-bold rounded-xl hover:from-blue-700 hover:to-indigo-700">
+                                + Nuevo Usuario
+                            </button>
+                        </div>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="w-full">
+                            <thead class="bg-gradient-to-r from-slate-50 to-slate-100 border-b border-slate-200">
+                                <tr>
+                                    <th class="px-6 py-4 text-left text-sm font-bold text-slate-700">Usuario</th>
+                                    <th class="px-6 py-4 text-left text-sm font-bold text-slate-700">Email</th>
+                                    <th class="px-6 py-4 text-center text-sm font-bold text-slate-700">Rol</th>
+                                    <th class="px-6 py-4 text-center text-sm font-bold text-slate-700">Estado</th>
+                                    <th class="px-6 py-4 text-center text-sm font-bold text-slate-700 rounded-tr-2xl">Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-slate-100" id="usersTable">
+                                <tr class="hover:bg-slate-50">
+                                    <td class="px-6 py-4">
+                                        <div class="flex items-center gap-4">
+                                            <div class="w-12 h-12 bg-gradient-to-br from-amber-100 to-orange-100 rounded-full flex items-center justify-center text-xl font-bold text-amber-700">JP</div>
+                                            <div>
+                                                <p class="font-bold text-slate-900">Juan Pérez</p>
+                                                <p class="text-sm text-slate-500">ID: USR-001</p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="px-6 py-4 text-slate-700">juan@mitienda.com</td>
+                                    <td class="px-6 py-4 text-center">
+                                        <span class="px-3 py-1 bg-purple-100 text-purple-700 rounded-full text-sm font-bold">Admin</span>
+                                    </td>
+                                    <td class="px-6 py-4 text-center">
+                                        <span class="px-3 py-1 bg-emerald-100 text-emerald-700 rounded-full text-sm font-bold">Activo</span>
+                                    </td>
+                                    <td class="px-6 py-4 text-center">
+                                        <div class="flex gap-2 justify-center">
+                                            <button onclick="editUser(1)" class="px-3 py-1 bg-blue-100 text-blue-700 rounded-lg text-sm font-semibold hover:bg-blue-200">Editar</button>
+                                            <button onclick="deleteUser(1)" class="px-3 py-1 bg-red-100 text-red-700 rounded-lg text-sm font-semibold hover:bg-red-200">Eliminar</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr class="hover:bg-slate-50">
+                                    <td class="px-6 py-4">
+                                        <div class="flex items-center gap-4">
+                                            <div class="w-12 h-12 bg-gradient-to-br from-blue-100 to-indigo-100 rounded-full flex items-center justify-center text-xl font-bold text-blue-700">MG</div>
+                                            <div>
+                                                <p class="font-bold text-slate-900">María González</p>
+                                                <p class="text-sm text-slate-500">ID: USR-002</p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="px-6 py-4 text-slate-700">maria@mitienda.com</td>
+                                    <td class="px-6 py-4 text-center">
+                                        <span class="px-3 py-1 bg-emerald-100 text-emerald-700 rounded-full text-sm font-semibold">Cajero</span>
+                                    </td>
+                                    <td class="px-6 py-4 text-center">
+                                        <span class="px-3 py-1 bg-emerald-100 text-emerald-700 rounded-full text-sm font-bold">Activo</span>
+                                    </td>
+                                    <td class="px-6 py-4 text-center">
+                                        <div class="flex gap-2 justify-center">
+                                            <button onclick="editUser(2)" class="px-3 py-1 bg-blue-100 text-blue-700 rounded-lg text-sm font-semibold hover:bg-blue-200">Editar</button>
+                                            <button onclick="deleteUser(2)" class="px-3 py-1 bg-red-100 text-red-700 rounded-lg text-sm font-semibold hover:bg-red-200">Eliminar</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- System Settings -->
+                <div class="bg-white rounded-2xl shadow-lg border border-slate-200 overflow-hidden">
+                    <div class="p-6 border-b border-slate-200 bg-gradient-to-r from-slate-50 to-white">
+                        <h3 class="text-xl font-black text-slate-900 flex items-center gap-2">
+                            <span>🔧</span> Ajustes del Sistema
+                        </h3>
+                    </div>
+                    <div class="p-6 space-y-4">
+                        <div class="flex items-center justify-between p-4 bg-slate-50 rounded-xl">
+                            <div>
+                                <p class="font-bold text-slate-900">Modo Oscuro</p>
+                                <p class="text-sm text-slate-600">Activar tema oscuro en la interfaz</p>
+                            </div>
+                            <label class="relative inline-flex items-center cursor-pointer">
+                                <input type="checkbox" class="sr-only peer">
+                                <div class="w-14 h-7 bg-slate-300 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[4px] after:bg-white after:rounded-full after:h-6 after:w-6 after:transition-all peer-checked:bg-blue-600"></div>
+                            </label>
+                        </div>
+                        <div class="flex items-center justify-between p-4 bg-slate-50 rounded-xl">
+                            <div>
+                                <p class="font-bold text-slate-900">Notificaciones</p>
+                                <p class="text-sm text-slate-600">Recibir alertas de stock bajo</p>
+                            </div>
+                            <label class="relative inline-flex items-center cursor-pointer">
+                                <input type="checkbox" checked class="sr-only peer">
+                                <div class="w-14 h-7 bg-slate-300 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[4px] after:bg-white after:rounded-full after:h-6 after:w-6 after:transition-all peer-checked:bg-blue-600"></div>
+                            </label>
+                        </div>
+                        <div class="flex items-center justify-between p-4 bg-slate-50 rounded-xl">
+                            <div>
+                                <p class="font-bold text-slate-900">Copia de Seguridad Automática</p>
+                                <p class="text-sm text-slate-600">Realizar backups diarios</p>
+                            </div>
+                            <label class="relative inline-flex items-center cursor-pointer">
+                                <input type="checkbox" checked class="sr-only peer">
+                                <div class="w-14 h-7 bg-slate-300 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[4px] after:bg-white after:rounded-full after:h-6 after:w-6 after:transition-all peer-checked:bg-blue-600"></div>
+                            </label>
+                        </div>
+                        <button onclick="saveSettings()" class="px-6 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-bold rounded-xl hover:from-blue-700 hover:to-indigo-700 transition-all">
+                            Guardar Cambios
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- User Modal (Hidden) -->
+    <div id="userModal" class="fixed inset-0 bg-black/50 z-50 hidden items-center justify-center">
+        <div class="bg-white rounded-3xl shadow-2xl max-w-lg w-full mx-4 overflow-hidden">
+            <div class="bg-gradient-to-r from-blue-500 to-indigo-600 text-white p-6">
+                <h3 class="text-xl font-bold" id="userModalTitle">Nuevo Usuario</h3>
+            </div>
+            <div class="p-6 space-y-4">
+                <input id="userName" placeholder="Nombre completo" class="w-full px-4 py-3 border border-slate-200 rounded-xl">
+                <input id="userEmail" placeholder="Email" type="email" class="w-full px-4 py-3 border border-slate-200 rounded-xl">
+                <input id="userPassword" placeholder="Contraseña" type="password" class="w-full px-4 py-3 border border-slate-200 rounded-xl">
+                <select id="userRole" class="w-full px-4 py-3 border border-slate-200 rounded-xl">
+                    <option value="admin">Administrador</option>
+                    <option value="manager">Gerente</option>
+                    <option value="cashier">Cajero</option>
+                    <option value="guest">Invitado</option>
+                </select>
+                <div class="flex gap-3 pt-4">
+                    <button onclick="closeUserModal()" class="flex-1 px-4 py-3 bg-slate-100 text-slate-700 font-bold rounded-xl">Cancelar</button>
+                    <button onclick="saveUser()" class="flex-1 px-4 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-bold rounded-xl">Guardar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let users = [
+            { id: 1, name: 'Juan Pérez', email: 'juan@mitienda.com', role: 'admin', status: 'active' },
+            { id: 2, name: 'María González', email: 'maria@mitienda.com', role: 'cashier', status: 'active' },
+        ];
+        let editingUserId = null;
+
+        function saveSettings() {
+            alert('✅ Configuración guardada exitosamente!');
+        }
+
+        function openUserModal() {
+            editingUserId = null;
+            document.getElementById('userModalTitle').textContent = 'Nuevo Usuario';
+            document.getElementById('userName').value = '';
+            document.getElementById('userEmail').value = '';
+            document.getElementById('userPassword').value = '';
+            document.getElementById('userRole').value = 'cashier';
+            document.getElementById('userModal').classList.remove('hidden');
+            document.getElementById('userModal').classList.add('flex');
+        }
+
+        function closeUserModal() {
+            document.getElementById('userModal').classList.add('hidden');
+            document.getElementById('userModal').classList.remove('flex');
+        }
+
+        function editUser(id) {
+            const user = users.find(u => u.id === id);
+            if (user) {
+                editingUserId = id;
+                document.getElementById('userModalTitle').textContent = 'Editar Usuario';
+                document.getElementById('userName').value = user.name;
+                document.getElementById('userEmail').value = user.email;
+                document.getElementById('userRole').value = user.role;
+                document.getElementById('userModal').classList.remove('hidden');
+                document.getElementById('userModal').classList.add('flex');
+            }
+        }
+
+        function saveUser() {
+            const name = document.getElementById('userName').value;
+            const email = document.getElementById('userEmail').value;
+            const role = document.getElementById('userRole').value;
+
+            if (!name || !email) {
+                alert('Por favor complete todos los campos');
+                return;
+            }
+
+            if (editingUserId) {
+                const index = users.findIndex(u => u.id === editingUserId);
+                users[index] = { ...users[index], name, email, role };
+                alert('✅ Usuario actualizado exitosamente!');
+            } else {
+                const newId = Math.max(...users.map(u => u.id)) + 1;
+                users.push({ id: newId, name, email, role, status: 'active' });
+                alert('✅ Usuario creado exitosamente!');
+            }
+
+            renderUsers();
+            closeUserModal();
+        }
+
+        function deleteUser(id) {
+            if (confirm('¿Está seguro de eliminar este usuario?')) {
+                users = users.filter(u => u.id !== id);
+                renderUsers();
+                alert('✅ Usuario eliminado exitosamente!');
+            }
+        }
+
+        function renderUsers() {
+            const tbody = document.getElementById('usersTable');
+            const roleLabels = {
+                admin: '<span class="px-3 py-1 bg-purple-100 text-purple-700 rounded-full text-sm font-bold">Admin</span>',
+                manager: '<span class="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-sm font-semibold">Gerente</span>',
+                cashier: '<span class="px-3 py-1 bg-emerald-100 text-emerald-700 rounded-full text-sm font-semibold">Cajero</span>',
+                guest: '<span class="px-3 py-1 bg-slate-100 text-slate-700 rounded-full text-sm font-semibold">Invitado</span>'
+            };
+
+            tbody.innerHTML = users.map(u => {
+                const initials = u.name.split(' ').map(n => n[0]).join('').toUpperCase();
+                const colors = ['amber', 'blue', 'emerald', 'purple', 'pink'];
+                const color = colors[u.id % colors.length];
+                
+                return `
+                    <tr class="hover:bg-slate-50">
+                        <td class="px-6 py-4">
+                            <div class="flex items-center gap-4">
+                                <div class="w-12 h-12 bg-gradient-to-br from-${color}-100 to-${color}-200 rounded-full flex items-center justify-center text-xl font-bold text-${color}-700">${initials}</div>
+                                <div>
+                                    <p class="font-bold text-slate-900">${u.name}</p>
+                                    <p class="text-sm text-slate-500">ID: USR-${String(u.id).padStart(3, '0')}</p>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="px-6 py-4 text-slate-700">${u.email}</td>
+                        <td class="px-6 py-4 text-center">${roleLabels[u.role]}</td>
+                        <td class="px-6 py-4 text-center">
+                            <span class="px-3 py-1 bg-emerald-100 text-emerald-700 rounded-full text-sm font-bold">Activo</span>
+                        </td>
+                        <td class="px-6 py-4 text-center">
+                            <div class="flex gap-2 justify-center">
+                                <button onclick="editUser(${u.id})" class="px-3 py-1 bg-blue-100 text-blue-700 rounded-lg text-sm font-semibold hover:bg-blue-200">Editar</button>
+                                <button onclick="deleteUser(${u.id})" class="px-3 py-1 bg-red-100 text-red-700 rounded-lg text-sm font-semibold hover:bg-red-200">Eliminar</button>
+                            </div>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        renderUsers();
+
+        // Verificar autenticación al cargar
+        window.addEventListener('load', () => {
+            AuthService.requireAuth();
+        });
+    </script>
+</body>
+</html>

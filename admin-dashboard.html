@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de Administración</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="js/auth.js"></script>
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .sidebar-link:hover { background: linear-gradient(90deg, #eff6ff, #dbeafe); }
+        .sidebar-link.active { background: linear-gradient(90deg, #dbeafe, #bfdbfe); border-left: 4px solid #3b82f6; }
+    </style>
+</head>
+<body class="bg-slate-100 min-h-screen">
+    <div class="flex min-h-screen">
+        <!-- Sidebar -->
+        <aside class="w-72 bg-white border-r border-slate-200 shadow-xl">
+            <div class="p-6 border-b border-slate-200">
+                <div class="flex items-center gap-4">
+                    <div class="w-12 h-12 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-2xl flex items-center justify-center shadow-lg">
+                        <span class="text-2xl text-white">🏪</span>
+                    </div>
+                    <div>
+                        <h1 class="text-xl font-black text-slate-900">Mi Negocio</h1>
+                        <p class="text-sm text-slate-500">Panel de Admin</p>
+                    </div>
+                </div>
+            </div>
+            
+            <nav class="p-4 space-y-2">
+                <a href="index.html" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-xl text-slate-700 font-semibold">
+                    <span>📊</span>
+                    Inicio
+                </a>
+                <a href="pos-panel.html" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-xl text-slate-700 font-semibold">
+                    <span>💵</span>
+                    Ventas (POS)
+                </a>
+                <a href="#" class="sidebar-link active flex items-center gap-3 px-4 py-3 rounded-xl text-blue-700 font-semibold">
+                    <span>📦</span>
+                    Productos
+                </a>
+                <a href="customers.html" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-xl text-slate-700 font-semibold">
+                    <span>👥</span>
+                    Clientes
+                </a>
+                <a href="suppliers.html" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-xl text-slate-700 font-semibold">
+                    <span>🏭</span>
+                    Proveedores
+                </a>
+                <a href="reports.html" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-xl text-slate-700 font-semibold">
+                    <span>📈</span>
+                    Reportes
+                </a>
+                <a href="cash-register.html" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-xl text-slate-700 font-semibold">
+                    <span>💰</span>
+                    Caja
+                </a>
+                <a href="settings.html" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-xl text-slate-700 font-semibold">
+                    <span>⚙️</span>
+                    Configuración
+                </a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1">
+            <!-- Header -->
+            <header class="bg-white border-b border-slate-200 shadow-sm px-6 py-4 sticky top-0 z-20">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <h2 class="text-2xl font-black text-slate-900">Gestión de Productos</h2>
+                        <p class="text-slate-500 text-sm">Inventario y catálogo de productos</p>
+                    </div>
+                    <div class="flex items-center gap-4">
+                        <div class="flex items-center gap-3 px-4 py-2 bg-slate-100 rounded-xl">
+                            <div class="w-10 h-10 bg-gradient-to-br from-amber-100 to-orange-100 rounded-full flex items-center justify-center">
+                                <span class="font-bold text-amber-700" id="userInitials">JP</span>
+                            </div>
+                            <span class="font-semibold text-slate-700" id="userName">Juan Pérez</span>
+                        </div>
+                        <button onclick="AuthService.logout()" class="px-4 py-2 bg-red-100 text-red-700 rounded-xl font-semibold hover:bg-red-200 transition-all">
+                            Cerrar Sesión
+                        </button>
+                        <button onclick="openModal()" class="px-5 py-2.5 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-bold rounded-xl shadow-lg transition-all">
+                            + Nuevo Producto
+                        </button>
+                    </div>
+                </div>
+            </header>
+
+            <div class="p-6 space-y-6 max-w-7xl mx-auto">
+                <!-- Stats Cards -->
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+                    <div class="bg-white rounded-2xl shadow-lg border border-slate-200 p-6">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-sm font-semibold text-slate-600">Total Productos</p>
+                                <p class="text-3xl font-black text-slate-900 mt-2">142</p>
+                            </div>
+                            <div class="w-14 h-14 bg-gradient-to-br from-blue-100 to-indigo-100 rounded-2xl flex items-center justify-center text-3xl">📦</div>
+                        </div>
+                        <p class="text-sm text-emerald-600 font-semibold mt-3">↑ 12% vs mes anterior</p>
+                    </div>
+                    <div class="bg-white rounded-2xl shadow-lg border border-slate-200 p-6">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-sm font-semibold text-slate-600">Stock Bajo</p>
+                                <p class="text-3xl font-black text-orange-600 mt-2">8</p>
+                            </div>
+                            <div class="w-14 h-14 bg-gradient-to-br from-amber-100 to-orange-100 rounded-2xl flex items-center justify-center text-3xl">⚠️</div>
+                        </div>
+                        <p class="text-sm text-amber-600 font-semibold mt-3">Requieren reposición</p>
+                    </div>
+                    <div class="bg-white rounded-2xl shadow-lg border border-slate-200 p-6">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-sm font-semibold text-slate-600">Valor Inventario</p>
+                                <p class="text-3xl font-black text-emerald-600 mt-2">$18,450</p>
+                            </div>
+                            <div class="w-14 h-14 bg-gradient-to-br from-emerald-100 to-green-100 rounded-2xl flex items-center justify-center text-3xl">💲</div>
+                        </div>
+                        <p class="text-sm text-slate-500 mt-3">Total valor de inventario</p>
+                    </div>
+                    <div class="bg-white rounded-2xl shadow-lg border border-slate-200 p-6">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-sm font-semibold text-slate-600">Categorías</p>
+                                <p class="text-3xl font-black text-purple-600 mt-2">6</p>
+                            </div>
+                            <div class="w-14 h-14 bg-gradient-to-br from-purple-100 to-pink-100 rounded-2xl flex items-center justify-center text-3xl">📋</div>
+                        </div>
+                        <p class="text-sm text-slate-500 mt-3">Categorías activas</p>
+                    </div>
+                </div>
+
+                <!-- Products Table -->
+                <div class="bg-white rounded-2xl shadow-lg border border-slate-200 overflow-hidden">
+                    <div class="p-6 border-b border-slate-200">
+                        <div class="flex items-center justify-between">
+                            <h3 class="text-xl font-black text-slate-900">Lista de Productos</h3>
+                            <div class="flex gap-3">
+                                <input type="text" placeholder="🔍 Buscar producto..." class="px-4 py-2 border border-slate-200 rounded-xl focus:border-blue-500 w-72">
+                                <select class="px-4 py-2 border border-slate-200 rounded-xl">
+                                    <option>Todas las categorías</option>
+                                    <option>Frutas y Verduras</option>
+                                    <option>Granos</option>
+                                    <option>Bebidas y Licores</option>
+                                    <option>Abarrotes</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="w-full">
+                            <thead class="bg-gradient-to-r from-slate-50 to-slate-100 border-b border-slate-200">
+                                <tr>
+                                    <th class="px-6 py-4 text-left text-sm font-bold text-slate-700">Producto</th>
+                                    <th class="px-6 py-4 text-center text-sm font-bold text-slate-700">Categoría</th>
+                                    <th class="px-6 py-4 text-center text-sm font-bold text-slate-700">Stock</th>
+                                    <th class="px-6 py-4 text-right text-sm font-bold text-slate-700">Precio</th>
+                                    <th class="px-6 py-4 text-center text-sm font-bold text-slate-700">Estado</th>
+                                    <th class="px-6 py-4 text-center text-sm font-bold text-slate-700 rounded-tr-2xl">Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-slate-100" id="productsTable">
+                                <tr class="hover:bg-slate-50">
+                                    <td class="px-6 py-4">
+                                        <div class="flex items-center gap-4">
+                                            <div class="w-14 h-14 bg-gradient-to-br from-red-100 to-pink-100 rounded-xl flex items-center justify-center text-3xl">🍎</div>
+                                            <div>
+                                                <p class="font-bold text-slate-900">Manzanas Rojas</p>
+                                                <p class="text-sm text-slate-500">SKU: PROD-001</p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="px-6 py-4 text-center">
+                                        <span class="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-sm font-semibold">Frutas</span>
+                                    </td>
+                                    <td class="px-6 py-4 text-center">
+                                        <span class="font-bold text-slate-900">100</span>
+                                    </td>
+                                    <td class="px-6 py-4 text-right font-bold text-slate-900">$1.50</td>
+                                    <td class="px-6 py-4 text-center">
+                                        <span class="px-3 py-1 bg-emerald-100 text-emerald-700 rounded-full text-sm font-bold">Activo</span>
+                                    </td>
+                                    <td class="px-6 py-4 text-center">
+                                        <div class="flex gap-2 justify-center">
+                                            <button onclick="editProduct(1)" class="px-3 py-1 bg-blue-100 text-blue-700 rounded-lg text-sm font-semibold hover:bg-blue-200">Editar</button>
+                                            <button onclick="deleteProduct(1)" class="px-3 py-1 bg-red-100 text-red-700 rounded-lg text-sm font-semibold hover:bg-red-200">Eliminar</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr class="hover:bg-slate-50">
+                                    <td class="px-6 py-4">
+                                        <div class="flex items-center gap-4">
+                                            <div class="w-14 h-14 bg-gradient-to-br from-yellow-100 to-amber-100 rounded-xl flex items-center justify-center text-3xl">🍌</div>
+                                            <div>
+                                                <p class="font-bold text-slate-900">Plátanos</p>
+                                                <p class="text-sm text-slate-500">SKU: PROD-002</p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="px-6 py-4 text-center">
+                                        <span class="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-sm font-semibold">Frutas</span>
+                                    </td>
+                                    <td class="px-6 py-4 text-center">
+                                        <span class="font-bold text-amber-600">8</span>
+                                    </td>
+                                    <td class="px-6 py-4 text-right font-bold text-slate-900">$0.80</td>
+                                    <td class="px-6 py-4 text-center">
+                                        <span class="px-3 py-1 bg-amber-100 text-amber-700 rounded-full text-sm font-bold">⚠️ Stock Bajo</span>
+                                    </td>
+                                    <td class="px-6 py-4 text-center">
+                                        <div class="flex gap-2 justify-center">
+                                            <button onclick="editProduct(2)" class="px-3 py-1 bg-blue-100 text-blue-700 rounded-lg text-sm font-semibold hover:bg-blue-200">Editar</button>
+                                            <button onclick="deleteProduct(2)" class="px-3 py-1 bg-red-100 text-red-700 rounded-lg text-sm font-semibold hover:bg-red-200">Eliminar</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr class="hover:bg-slate-50">
+                                    <td class="px-6 py-4">
+                                        <div class="flex items-center gap-4">
+                                            <div class="w-14 h-14 bg-gradient-to-br from-slate-100 to-gray-200 rounded-xl flex items-center justify-center text-3xl">🍚</div>
+                                            <div>
+                                                <p class="font-bold text-slate-900">Arroz Blanco</p>
+                                                <p class="text-sm text-slate-500">SKU: PROD-003</p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="px-6 py-4 text-center">
+                                        <span class="px-3 py-1 bg-emerald-100 text-emerald-700 rounded-full text-sm font-semibold">Granos</span>
+                                    </td>
+                                    <td class="px-6 py-4 text-center">
+                                        <span class="font-bold text-slate-900">50</span>
+                                    </td>
+                                    <td class="px-6 py-4 text-right font-bold text-slate-900">$4.50</td>
+                                    <td class="px-6 py-4 text-center">
+                                        <span class="px-3 py-1 bg-emerald-100 text-emerald-700 rounded-full text-sm font-bold">Activo</span>
+                                    </td>
+                                    <td class="px-6 py-4 text-center">
+                                        <div class="flex gap-2 justify-center">
+                                            <button onclick="editProduct(3)" class="px-3 py-1 bg-blue-100 text-blue-700 rounded-lg text-sm font-semibold hover:bg-blue-200">Editar</button>
+                                            <button onclick="deleteProduct(3)" class="px-3 py-1 bg-red-100 text-red-700 rounded-lg text-sm font-semibold hover:bg-red-200">Eliminar</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="p-6 border-t border-slate-200 flex items-center justify-between bg-slate-50">
+                        <p class="text-slate-600 text-sm">Mostrando 3 de 142 productos</p>
+                        <div class="flex gap-2">
+                            <button class="px-4 py-2 bg-slate-200 text-slate-700 rounded-lg font-semibold">← Anterior</button>
+                            <button class="px-4 py-2 bg-blue-500 text-white rounded-lg font-semibold">1</button>
+                            <button class="px-4 py-2 bg-white text-slate-700 border border-slate-200 rounded-lg font-semibold">2</button>
+                            <button class="px-4 py-2 bg-white text-slate-700 border border-slate-200 rounded-lg font-semibold">3</button>
+                            <button class="px-4 py-2 bg-white text-slate-700 border border-slate-200 rounded-lg font-semibold">Siguiente →</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal (Hidden) -->
+    <div id="productModal" class="fixed inset-0 bg-black/50 z-50 hidden items-center justify-center">
+        <div class="bg-white rounded-3xl shadow-2xl max-w-lg w-full mx-4 overflow-hidden">
+            <div class="bg-gradient-to-r from-blue-500 to-indigo-600 text-white p-6">
+                <h3 class="text-xl font-bold" id="modalTitle">Nuevo Producto</h3>
+            </div>
+            <div class="p-6 space-y-4">
+                <input id="productName" placeholder="Nombre del producto" class="w-full px-4 py-3 border border-slate-200 rounded-xl">
+                <select id="productCategory" class="w-full px-4 py-3 border border-slate-200 rounded-xl">
+                    <option>Seleccionar categoría</option>
+                    <option>Frutas y Verduras</option>
+                    <option>Granos</option>
+                    <option>Bebidas</option>
+                    <option>Abarrotes</option>
+                </select>
+                <div class="grid grid-cols-2 gap-4">
+                    <input id="productPrice" placeholder="Precio" type="number" step="0.01" class="px-4 py-3 border border-slate-200 rounded-xl">
+                    <input id="productStock" placeholder="Stock" type="number" class="px-4 py-3 border border-slate-200 rounded-xl">
+                </div>
+                <div class="flex gap-3 pt-4">
+                    <button onclick="closeModal()" class="flex-1 px-4 py-3 bg-slate-100 text-slate-700 font-bold rounded-xl">Cancelar</button>
+                    <button onclick="saveProduct()" class="flex-1 px-4 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-bold rounded-xl">Guardar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let products = [
+            { id: 1, name: 'Manzanas Rojas', sku: 'PROD-001', category: 'Frutas', stock: 100, price: 1.50, status: 'active', image: '🍎' },
+            { id: 2, name: 'Plátanos', sku: 'PROD-002', category: 'Frutas', stock: 8, price: 0.80, status: 'low', image: '🍌' },
+            { id: 3, name: 'Arroz Blanco', sku: 'PROD-003', category: 'Granos', stock: 50, price: 4.50, status: 'active', image: '🍚' },
+        ];
+        let editingId = null;
+
+        function openModal() {
+            editingId = null;
+            document.getElementById('modalTitle').textContent = 'Nuevo Producto';
+            document.getElementById('productName').value = '';
+            document.getElementById('productCategory').value = 'Frutas y Verduras';
+            document.getElementById('productPrice').value = '';
+            document.getElementById('productStock').value = '';
+            document.getElementById('productModal').classList.remove('hidden');
+            document.getElementById('productModal').classList.add('flex');
+        }
+
+        function closeModal() {
+            document.getElementById('productModal').classList.add('hidden');
+            document.getElementById('productModal').classList.remove('flex');
+        }
+
+        function editProduct(id) {
+            const product = products.find(p => p.id === id);
+            if (product) {
+                editingId = id;
+                document.getElementById('modalTitle').textContent = 'Editar Producto';
+                document.getElementById('productName').value = product.name;
+                document.getElementById('productCategory').value = product.category === 'Frutas' ? 'Frutas y Verduras' : product.category === 'Granos' ? 'Granos' : product.category;
+                document.getElementById('productPrice').value = product.price;
+                document.getElementById('productStock').value = product.stock;
+                document.getElementById('productModal').classList.remove('hidden');
+                document.getElementById('productModal').classList.add('flex');
+            }
+        }
+
+        function saveProduct() {
+            const name = document.getElementById('productName').value;
+            const category = document.getElementById('productCategory').value;
+            const price = parseFloat(document.getElementById('productPrice').value);
+            const stock = parseInt(document.getElementById('productStock').value);
+
+            if (!name || !price || !stock) {
+                alert('Por favor complete todos los campos');
+                return;
+            }
+
+            const categoryMap = {
+                'Frutas y Verduras': 'Frutas',
+                'Granos': 'Granos',
+                'Bebidas': 'Bebidas',
+                'Abarrotes': 'Abarrotes'
+            };
+
+            const status = stock < 10 ? 'low' : 'active';
+
+            if (editingId) {
+                const index = products.findIndex(p => p.id === editingId);
+                products[index] = { ...products[index], name, category: categoryMap[category], price, stock, status };
+                alert('✅ Producto actualizado exitosamente!');
+            } else {
+                const newId = Math.max(...products.map(p => p.id)) + 1;
+                const imageMap = { 'Frutas': '🍎', 'Granos': '🍚', 'Bebidas': '🥤', 'Abarrotes': '🍿' };
+                products.push({ 
+                    id: newId, 
+                    name, 
+                    sku: `PROD-${String(newId).padStart(3, '0')}`, 
+                    category: categoryMap[category], 
+                    stock, 
+                    price, 
+                    status,
+                    image: imageMap[categoryMap[category]] || '📦'
+                });
+                alert('✅ Producto creado exitosamente!');
+            }
+
+            renderProducts();
+            closeModal();
+        }
+
+        function deleteProduct(id) {
+            if (confirm('¿Está seguro de eliminar este producto?')) {
+                products = products.filter(p => p.id !== id);
+                renderProducts();
+                alert('✅ Producto eliminado exitosamente!');
+            }
+        }
+
+        function renderProducts() {
+            const tbody = document.querySelector('#productsTable tbody');
+            if (!tbody) {
+                const table = document.querySelector('table');
+                if (table) {
+                    table.querySelector('tbody').innerHTML = products.map(p => {
+                        const statusLabels = {
+                            active: '<span class="px-3 py-1 bg-emerald-100 text-emerald-700 rounded-full text-sm font-bold">Activo</span>',
+                            low: '<span class="px-3 py-1 bg-amber-100 text-amber-700 rounded-full text-sm font-bold">⚠️ Stock Bajo</span>'
+                        };
+                        const categoryColors = {
+                            'Frutas': 'blue',
+                            'Granos': 'emerald',
+                            'Bebidas': 'blue',
+                            'Abarrotes': 'purple'
+                        };
+                        const color = categoryColors[p.category] || 'blue';
+                        
+                        return `
+                            <tr class="hover:bg-slate-50">
+                                <td class="px-6 py-4">
+                                    <div class="flex items-center gap-4">
+                                        <div class="w-14 h-14 bg-gradient-to-br from-${color}-100 to-${color}-200 rounded-xl flex items-center justify-center text-3xl">${p.image}</div>
+                                        <div>
+                                            <p class="font-bold text-slate-900">${p.name}</p>
+                                            <p class="text-sm text-slate-500">SKU: ${p.sku}</p>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4 text-center">
+                                    <span class="px-3 py-1 bg-${color}-100 text-${color}-700 rounded-full text-sm font-semibold">${p.category}</span>
+                                </td>
+                                <td class="px-6 py-4 text-center">
+                                    <span class="font-bold ${p.stock < 10 ? 'text-amber-600' : 'text-slate-900'}">${p.stock}</span>
+                                </td>
+                                <td class="px-6 py-4 text-right font-bold text-slate-900">$${p.price.toFixed(2)}</td>
+                                <td class="px-6 py-4 text-center">${statusLabels[p.status]}</td>
+                                <td class="px-6 py-4 text-center">
+                                    <div class="flex gap-2 justify-center">
+                                        <button onclick="editProduct(${p.id})" class="px-3 py-1 bg-blue-100 text-blue-700 rounded-lg text-sm font-semibold hover:bg-blue-200">Editar</button>
+                                        <button onclick="deleteProduct(${p.id})" class="px-3 py-1 bg-red-100 text-red-700 rounded-lg text-sm font-semibold hover:bg-red-200">Eliminar</button>
+                                    </div>
+                                </td>
+                            </tr>
+                        `;
+                    }).join('');
+                }
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const table = document.querySelector('table');
+            if (table) {
+                table.querySelector('tbody').id = 'productsTable';
+                renderProducts();
+            }
+        });
+
+        // Verificar autenticación al cargar
+        window.addEventListener('load', () => {
+            AuthService.requireAuth();
+            
+            const user = AuthService.getUser();
+            if (user) {
+                document.getElementById('userName').textContent = user.name;
+                const initials = user.name.split(' ').map(n => n[0]).join('').toUpperCase().substring(0, 2);
+                document.getElementById('userInitials').textContent = initials;
+            }
+        });
+    </script>
+</body>
+</html>
