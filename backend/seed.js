@@ -120,11 +120,15 @@ const seedDatabase = async (autoExit = true) => {
       
       if (existingUser) {
         console.log(`ℹ️  Usuario ${seedUserData.email} ya existe. Actualizando...`);
-        // Actualizar usuario existente
-        await User.update(
-          { ...seedUserData, password: seedUserData.password }, // Password will be hashed by model hook
-          { where: { email: seedUserData.email } }
-        );
+        // Actualizar usuario existente usando save() para que se ejecuten los hooks
+        existingUser.name = seedUserData.name;
+        existingUser.role = seedUserData.role;
+        existingUser.password = seedUserData.password; // El hook beforeUpdate hasheará la contraseña
+        existingUser.status = seedUserData.status;
+        existingUser.isActive = seedUserData.isActive;
+        existingUser.fiscalInfo = seedUserData.fiscalInfo;
+        existingUser.companyId = seedUserData.companyId;
+        await existingUser.save();
         console.log(`✅ Usuario ${seedUserData.email} actualizado.`);
       } else {
         const user = await User.create(seedUserData);
