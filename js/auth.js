@@ -1,10 +1,7 @@
 // Servicio de Autenticación
 const AuthService = {
-  // Dynamic API URL: use localhost for dev, your deployed backend for production
-  // For Netlify, set this to your Render/Railway backend URL (e.g., https://tu-backend.onrender.com/api)
-  API_URL: window.location.hostname === 'localhost' 
-    ? 'http://localhost:5000/api' 
-    : 'https://omrsystem.onrender.com/api',
+  // API URL relativa para que funcione tanto en local como en producción
+  API_URL: '/api',
 
   // Obtener storage según preferencia (priorizar sessionStorage para aislamiento por pestaña)
   getStorage() {

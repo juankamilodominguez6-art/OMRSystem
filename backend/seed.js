@@ -14,8 +14,10 @@ const seedDatabase = async (autoExit = true) => {
     require('./models/Sale');
     require('./models/Invoice');
 
-    // Conectar a la base de datos (solo forzar sincronización si es ejecutado directamente)
-    await connectDB(autoExit);
+    // Conectar a la base de datos y BORRAR todas las tablas para empezar de cero
+    await connectDB(false);
+    const { sequelize } = require('./config/database');
+    await sequelize.sync({ force: true }); // ⚠️ Esto borra todas las tablas y las recrea
 
     // Importar modelos después de conectar
     const Company = require('./models/Company');
@@ -116,24 +118,9 @@ const seedDatabase = async (autoExit = true) => {
 
     console.log('\n2. Creando usuarios...');
     for (const seedUserData of seedUsers) {
-      const existingUser = await User.findOne({ where: { email: seedUserData.email } });
-      
-      if (existingUser) {
-        console.log(`ℹ️  Usuario ${seedUserData.email} ya existe. Actualizando...`);
-        // Actualizar usuario existente usando save() para que se ejecuten los hooks
-        existingUser.name = seedUserData.name;
-        existingUser.role = seedUserData.role;
-        existingUser.password = seedUserData.password; // El hook beforeUpdate hasheará la contraseña
-        existingUser.status = seedUserData.status;
-        existingUser.isActive = seedUserData.isActive;
-        existingUser.fiscalInfo = seedUserData.fiscalInfo;
-        existingUser.companyId = seedUserData.companyId;
-        await existingUser.save();
-        console.log(`✅ Usuario ${seedUserData.email} actualizado.`);
-      } else {
-        const user = await User.create(seedUserData);
-        console.log(`✅ Usuario creado exitosamente: ${seedUserData.email}`);
-      }
+      // Siempre crear usuarios nuevos ya que borramos todas las tablas
+      const user = await User.create(seedUserData);
+      console.log(`✅ Usuario creado exitosamente: ${seedUserData.email}`);
     }
 
     console.log('\n📋 Resumen de la siembra:');

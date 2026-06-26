@@ -30,6 +30,9 @@ startServer();
 
 const app = express();
 
+// Configurar trust proxy para Render y otros proveedores de cloud
+app.set('trust proxy', 1);
+
 // Middleware de seguridad con CSP configurado
 app.use(helmet({
   contentSecurityPolicy: {
